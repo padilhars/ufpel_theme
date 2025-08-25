@@ -1,0 +1,258 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_ufpel/course_header
+
+    UFPel Course Header Template
+
+    This template renders a customized course header with parallax background,
+    course information, teachers, and participants count.
+
+    Context variables:
+    * course - The course object
+    * ufpel_course_image - Course background image URL
+    * ufpel_course_header_overlay - Enable overlay (boolean)
+    * ufpel_show_course_image - Show course image (boolean)
+    * ufpel_show_course_teachers - Show course teachers (boolean)
+    * ufpel_show_course_participants - Show participants count (boolean)
+    * ufpel_course_teachers - Array of teacher objects
+    * ufpel_participants_count - Number of participants
+    
+    Example context (json):
+    {
+        "course": {
+            "id": 123,
+            "fullname": "Introduction to Computer Science",
+            "shortname": "CS101",
+            "summary": "An introductory course covering fundamental concepts..."
+        },
+        "ufpel_course_image": "https://example.com/course-image.jpg",
+        "ufpel_course_header_overlay": true,
+        "ufpel_show_course_image": true,
+        "ufpel_show_course_teachers": true,
+        "ufpel_show_course_participants": true,
+        "ufpel_course_teachers": [
+            {
+                "id": 456,
+                "fullname": "Prof. João Silva",
+                "profileimage": "https://example.com/avatar.jpg",
+                "profileurl": "https://example.com/user/profile.php?id=456"
+            }
+        ],
+        "ufpel_participants_count": 42
+    }
+}}
+
+{{#ufpel_show_course_image}}
+<div class="course-header" 
+     data-course-id="{{course.id}}" 
+     data-enable-parallax="{{ufpel_enable_parallax}}"
+     role="banner"
+     aria-labelledby="course-header-title">
+    
+    {{! Background image with parallax effect }}
+    <div class="course-header__background" 
+         style="background-image: url('{{ufpel_course_image}}');"
+         data-bg-src="{{ufpel_course_image}}"
+         aria-hidden="true">
+    </div>
+    
+    {{! Overlay for better text readability }}
+    {{#ufpel_course_header_overlay}}
+    <div class="course-header__overlay" aria-hidden="true"></div>
+    {{/ufpel_course_header_overlay}}
+    
+    {{! Course header content }}
+    <div class="course-header__content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    
+                    {{! Course title }}
+                    <h1 id="course-header-title" 
+                        class="course-header__title mb-3" 
+                        data-course-id="{{course.id}}">
+                        {{course.fullname}}
+                    </h1>
+                    
+                    {{! Course short name }}
+                    {{#course.shortname}}
+                    <p class="course-header__shortname mb-2 h5">
+                        <span class="badge bg-light text-dark rounded-pill px-3 py-2">
+                            {{course.shortname}}
+                        </span>
+                    </p>
+                    {{/course.shortname}}
+                    
+                    {{! Course summary }}
+                    {{#course.summary}}
+                    <div class="course-header__summary mb-4">
+                        <p class="lead mb-0">{{course.summary}}</p>
+                    </div>
+                    {{/course.summary}}
+                    
+                    {{! Course information section }}
+                    <div class="course-header__info">
+                        <div class="row g-3">
+                            
+                            {{! Course teachers section }}
+                            {{#ufpel_show_course_teachers}}
+                            {{#ufpel_course_teachers}}
+                            <div class="col-auto">
+                                <div class="course-header__teachers d-flex align-items-center">
+                                    <span class="me-2" aria-hidden="true">
+                                        <i class="fa fa-user-tie" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="course-header__teachers-label me-3">
+                                        {{#str}}teachers, theme_ufpel{{/str}}:
+                                    </span>
+                                    <div class="course-header__teachers-list">
+                                        {{#.}}
+                                        <a href="{{profileurl}}" 
+                                           class="teacher-link d-inline-flex align-items-center me-3 text-white text-decoration-none"
+                                           title="{{fullname}}"
+                                           data-teacher-id="{{id}}">
+                                            <img src="{{profileimage}}" 
+                                                 alt="{{fullname}}"
+                                                 class="teacher-avatar me-2 rounded-circle"
+                                                 width="32" 
+                                                 height="32"
+                                                 loading="lazy">
+                                            <span class="teacher-name">{{fullname}}</span>
+                                        </a>
+                                        {{/.}}
+                                    </div>
+                                </div>
+                            </div>
+                            {{/ufpel_course_teachers}}
+                            {{/ufpel_show_course_teachers}}
+                            
+                            {{! Course participants count }}
+                            {{#ufpel_show_course_participants}}
+                            {{#ufpel_participants_count}}
+                            <div class="col-auto">
+                                <div class="course-header__participants d-flex align-items-center">
+                                    <span class="me-2" aria-hidden="true">
+                                        <i class="fa fa-users" aria-hidden="true"></i>
+                                    </span>
+                                    <span>
+                                        {{#str}}participants, theme_ufpel{{/str}}: 
+                                        <strong>{{ufpel_participants_count}}</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            {{/ufpel_participants_count}}
+                            {{/ufpel_show_course_participants}}
+                            
+                            {{! Course progress indicator (if available) }}
+                            {{#course.progress}}
+                            <div class="col-auto">
+                                <div class="course-header__progress d-flex align-items-center">
+                                    <span class="me-2" aria-hidden="true">
+                                        <i class="fa fa-chart-line" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="me-2">{{#str}}progress, theme_ufpel{{/str}}:</span>
+                                    <div class="progress bg-light" style="width: 100px; height: 8px;" role="progressbar" 
+                                         aria-valuenow="{{course.progress}}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100">
+                                        <div class="progress-bar bg-warning" 
+                                             style="width: {{course.progress}}%">
+                                        </div>
+                                    </div>
+                                    <span class="ms-2">{{course.progress}}%</span>
+                                </div>
+                            </div>
+                            {{/course.progress}}
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{{/ufpel_show_course_image}}
+
+{{! Fallback header without image }}
+{{^ufpel_show_course_image}}
+<div class="course-header-simple bg-primary text-white py-4" 
+     role="banner"
+     aria-labelledby="course-header-simple-title">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 id="course-header-simple-title" 
+                    class="mb-2" 
+                    data-course-id="{{course.id}}">
+                    {{course.fullname}}
+                </h1>
+                
+                {{#course.shortname}}
+                <p class="mb-0 opacity-75">{{course.shortname}}</p>
+                {{/course.shortname}}
+            </div>
+        </div>
+    </div>
+</div>
+{{/ufpel_show_course_image}}
+
+{{! Initialize parallax effect if enabled }}
+{{#ufpel_enable_parallax}}
+{{#js}}
+require(['theme_ufpel/course-parallax'], function(CourseParallax) {
+    CourseParallax.init({
+        selector: '.course-header__background',
+        speed: 0.5,
+        enableOnMobile: false
+    });
+});
+{{/js}}
+{{/ufpel_enable_parallax}}
+
+{{! Add structured data for SEO }}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "{{course.fullname}}",
+    {{#course.shortname}}
+    "courseCode": "{{course.shortname}}",
+    {{/course.shortname}}
+    {{#course.summary}}
+    "description": "{{course.summary}}",
+    {{/course.summary}}
+    {{#ufpel_course_teachers}}
+    "instructor": [
+        {{#.}}
+        {
+            "@type": "Person",
+            "name": "{{fullname}}",
+            "url": "{{profileurl}}"
+        }{{^last}},{{/last}}
+        {{/.}}
+    ],
+    {{/ufpel_course_teachers}}
+    "provider": {
+        "@type": "Organization",
+        "name": "Universidade Federal de Pelotas",
+        "url": "https://ufpel.edu.br"
+    }
+}
+</script>

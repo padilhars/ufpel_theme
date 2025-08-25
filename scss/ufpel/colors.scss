@@ -1,0 +1,536 @@
+/**
+ * UFPel Theme Color System Module
+ * 
+ * Comprehensive color system implementation for the UFPel theme.
+ * Includes color tokens, semantic colors, and accessibility features.
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas (UFPel)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// =============================================================================
+// CSS Custom Properties for UFPel Colors
+// =============================================================================
+
+:root {
+    // UFPel primary color tokens
+    --ufpel-primary-50: #{mix(white, $ufpel-blue-primary, 95%)};
+    --ufpel-primary-100: #{mix(white, $ufpel-blue-primary, 90%)};
+    --ufpel-primary-200: #{mix(white, $ufpel-blue-primary, 75%)};
+    --ufpel-primary-300: #{mix(white, $ufpel-blue-primary, 50%)};
+    --ufpel-primary-400: #{mix(white, $ufpel-blue-primary, 25%)};
+    --ufpel-primary-500: #{$ufpel-blue-primary};
+    --ufpel-primary-600: #{darken($ufpel-blue-primary, 10%)};
+    --ufpel-primary-700: #{darken($ufpel-blue-primary, 20%)};
+    --ufpel-primary-800: #{darken($ufpel-blue-primary, 30%)};
+    --ufpel-primary-900: #{darken($ufpel-blue-primary, 40%)};
+    
+    // UFPel secondary color tokens
+    --ufpel-secondary-50: #{mix(white, $ufpel-blue-secondary, 95%)};
+    --ufpel-secondary-100: #{mix(white, $ufpel-blue-secondary, 90%)};
+    --ufpel-secondary-200: #{mix(white, $ufpel-blue-secondary, 75%)};
+    --ufpel-secondary-300: #{mix(white, $ufpel-blue-secondary, 50%)};
+    --ufpel-secondary-400: #{mix(white, $ufpel-blue-secondary, 25%)};
+    --ufpel-secondary-500: #{$ufpel-blue-secondary};
+    --ufpel-secondary-600: #{darken($ufpel-blue-secondary, 10%)};
+    --ufpel-secondary-700: #{darken($ufpel-blue-secondary, 20%)};
+    --ufpel-secondary-800: #{darken($ufpel-blue-secondary, 30%)};
+    --ufpel-secondary-900: #{darken($ufpel-blue-secondary, 40%)};
+    
+    // UFPel accent color tokens
+    --ufpel-accent-50: #{mix(white, $ufpel-orange-accent, 95%)};
+    --ufpel-accent-100: #{mix(white, $ufpel-orange-accent, 90%)};
+    --ufpel-accent-200: #{mix(white, $ufpel-orange-accent, 75%)};
+    --ufpel-accent-300: #{mix(white, $ufpel-orange-accent, 50%)};
+    --ufpel-accent-400: #{mix(white, $ufpel-orange-accent, 25%)};
+    --ufpel-accent-500: #{$ufpel-orange-accent};
+    --ufpel-accent-600: #{darken($ufpel-orange-accent, 10%)};
+    --ufpel-accent-700: #{darken($ufpel-orange-accent, 20%)};
+    --ufpel-accent-800: #{darken($ufpel-orange-accent, 30%)};
+    --ufpel-accent-900: #{darken($ufpel-orange-accent, 40%)};
+    
+    // Neutral color tokens
+    --ufpel-neutral-50: #f8f9fa;
+    --ufpel-neutral-100: #f1f3f4;
+    --ufpel-neutral-200: #e9ecef;
+    --ufpel-neutral-300: #dee2e6;
+    --ufpel-neutral-400: #ced4da;
+    --ufpel-neutral-500: #adb5bd;
+    --ufpel-neutral-600: #6c757d;
+    --ufpel-neutral-700: #495057;
+    --ufpel-neutral-800: #343a40;
+    --ufpel-neutral-900: #212529;
+    
+    // Semantic color tokens
+    --ufpel-success-light: #{lighten($ufpel-success, 40%)};
+    --ufpel-success: #{$ufpel-success};
+    --ufpel-success-dark: #{darken($ufpel-success, 15%)};
+    
+    --ufpel-warning-light: #{lighten($ufpel-warning, 30%)};
+    --ufpel-warning: #{$ufpel-warning};
+    --ufpel-warning-dark: #{darken($ufpel-warning, 15%)};
+    
+    --ufpel-danger-light: #{lighten($ufpel-danger, 40%)};
+    --ufpel-danger: #{$ufpel-danger};
+    --ufpel-danger-dark: #{darken($ufpel-danger, 15%)};
+    
+    --ufpel-info-light: #{lighten($ufpel-info, 40%)};
+    --ufpel-info: #{$ufpel-info};
+    --ufpel-info-dark: #{darken($ufpel-info, 15%)};
+}
+
+// =============================================================================
+// Dark Mode Color Tokens
+// =============================================================================
+
+[data-theme="dark"],
+.theme-dark,
+@media (prefers-color-scheme: dark) {
+    :root {
+        // UFPel primary colors for dark mode
+        --ufpel-primary-50: #{darken($ufpel-blue-primary, 40%)};
+        --ufpel-primary-100: #{darken($ufpel-blue-primary, 30%)};
+        --ufpel-primary-200: #{darken($ufpel-blue-primary, 20%)};
+        --ufpel-primary-300: #{darken($ufpel-blue-primary, 10%)};
+        --ufpel-primary-400: #{$ufpel-blue-primary};
+        --ufpel-primary-500: #{lighten($ufpel-blue-primary, 10%)};
+        --ufpel-primary-600: #{lighten($ufpel-blue-primary, 20%)};
+        --ufpel-primary-700: #{lighten($ufpel-blue-primary, 30%)};
+        --ufpel-primary-800: #{lighten($ufpel-blue-primary, 40%)};
+        --ufpel-primary-900: #{lighten($ufpel-blue-primary, 50%)};
+        
+        // Background colors for dark mode
+        --ufpel-bg-primary: #{$ufpel-dark-bg-primary};
+        --ufpel-bg-secondary: #{$ufpel-dark-bg-secondary};
+        --ufpel-bg-elevated: #21262d;
+        --ufpel-bg-overlay: rgba(0, 0, 0, 0.8);
+        
+        // Text colors for dark mode
+        --ufpel-text-primary: #{$ufpel-dark-text-primary};
+        --ufpel-text-secondary: #{$ufpel-dark-text-secondary};
+        --ufpel-text-muted: #656d76;
+        --ufpel-text-disabled: #484f58;
+        
+        // Border colors for dark mode
+        --ufpel-border-primary: #{$ufpel-dark-border};
+        --ufpel-border-secondary: #21262d;
+        --ufpel-border-muted: #373e47;
+    }
+}
+
+// =============================================================================
+// Utility Color Classes
+// =============================================================================
+
+// UFPel brand color utilities
+.text-ufpel-primary { color: var(--ufpel-primary-500) !important; }
+.text-ufpel-secondary { color: var(--ufpel-secondary-500) !important; }
+.text-ufpel-accent { color: var(--ufpel-accent-500) !important; }
+
+.bg-ufpel-primary { background-color: var(--ufpel-primary-500) !important; }
+.bg-ufpel-secondary { background-color: var(--ufpel-secondary-500) !important; }
+.bg-ufpel-accent { background-color: var(--ufpel-accent-500) !important; }
+
+// UFPel brand color variations
+@for $i from 1 through 9 {
+    $weight: $i * 100;
+    
+    .text-ufpel-primary-#{$weight} { color: var(--ufpel-primary-#{$weight}) !important; }
+    .text-ufpel-secondary-#{$weight} { color: var(--ufpel-secondary-#{$weight}) !important; }
+    .text-ufpel-accent-#{$weight} { color: var(--ufpel-accent-#{$weight}) !important; }
+    
+    .bg-ufpel-primary-#{$weight} { background-color: var(--ufpel-primary-#{$weight}) !important; }
+    .bg-ufpel-secondary-#{$weight} { background-color: var(--ufpel-secondary-#{$weight}) !important; }
+    .bg-ufpel-accent-#{$weight} { background-color: var(--ufpel-accent-#{$weight}) !important; }
+}
+
+// UFPel gradient utilities
+.bg-gradient-ufpel-primary {
+    background: linear-gradient(135deg, var(--ufpel-primary-500), var(--ufpel-secondary-500)) !important;
+}
+
+.bg-gradient-ufpel-accent {
+    background: linear-gradient(135deg, var(--ufpel-accent-500), var(--ufpel-accent-300)) !important;
+}
+
+.bg-gradient-ufpel-subtle {
+    background: linear-gradient(135deg, var(--ufpel-primary-50), var(--ufpel-secondary-50)) !important;
+}
+
+// =============================================================================
+// Border Color Utilities
+// =============================================================================
+
+.border-ufpel-primary { border-color: var(--ufpel-primary-500) !important; }
+.border-ufpel-secondary { border-color: var(--ufpel-secondary-500) !important; }
+.border-ufpel-accent { border-color: var(--ufpel-accent-500) !important; }
+
+// Border variations
+.border-start-ufpel-primary { border-left-color: var(--ufpel-primary-500) !important; }
+.border-end-ufpel-primary { border-right-color: var(--ufpel-primary-500) !important; }
+.border-top-ufpel-primary { border-top-color: var(--ufpel-primary-500) !important; }
+.border-bottom-ufpel-primary { border-bottom-color: var(--ufpel-primary-500) !important; }
+
+// =============================================================================
+// Interactive Color States
+// =============================================================================
+
+// Hover state colors
+.hover-ufpel-primary:hover { color: var(--ufpel-primary-600) !important; }
+.hover-ufpel-secondary:hover { color: var(--ufpel-secondary-600) !important; }
+.hover-ufpel-accent:hover { color: var(--ufpel-accent-600) !important; }
+
+.hover-bg-ufpel-primary:hover { background-color: var(--ufpel-primary-600) !important; }
+.hover-bg-ufpel-secondary:hover { background-color: var(--ufpel-secondary-600) !important; }
+.hover-bg-ufpel-accent:hover { background-color: var(--ufpel-accent-600) !important; }
+
+// Focus state colors
+.focus-ufpel-primary:focus { 
+    color: var(--ufpel-primary-700) !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 64, 143, 0.25) !important;
+}
+
+// Active state colors
+.active-ufpel-primary.active,
+.active-ufpel-primary:active { 
+    color: var(--ufpel-primary-800) !important;
+    background-color: var(--ufpel-primary-100) !important;
+}
+
+// =============================================================================
+// Accessibility Color Enhancements
+// =============================================================================
+
+// High contrast mode overrides
+@media (prefers-contrast: high) {
+    :root {
+        --ufpel-primary-500: #000080;
+        --ufpel-secondary-500: #0000ff;
+        --ufpel-accent-500: #ff8c00;
+        --ufpel-text-primary: #000000;
+        --ufpel-bg-primary: #ffffff;
+    }
+    
+    .text-ufpel-primary { color: var(--ufpel-primary-500) !important; }
+    .bg-ufpel-primary { background-color: var(--ufpel-primary-500) !important; }
+    
+    // Ensure sufficient contrast for interactive elements
+    .btn-primary {
+        background-color: var(--ufpel-primary-500) !important;
+        border-color: var(--ufpel-primary-500) !important;
+        color: white !important;
+    }
+    
+    .card {
+        border: 2px solid var(--ufpel-primary-500) !important;
+    }
+}
+
+// =============================================================================
+// Color Theme Variants
+// =============================================================================
+
+// Light theme (default)
+.theme-light {
+    --ufpel-text-primary: #{$ufpel-text-primary};
+    --ufpel-bg-primary: #{$ufpel-background-light};
+    --ufpel-bg-secondary: #ffffff;
+    --ufpel-border-color: #{rgba(0, 64, 143, 0.15)};
+}
+
+// Dark theme
+.theme-dark {
+    --ufpel-text-primary: #{$ufpel-dark-text-primary};
+    --ufpel-bg-primary: #{$ufpel-dark-bg-primary};
+    --ufpel-bg-secondary: #{$ufpel-dark-bg-secondary};
+    --ufpel-border-color: #{$ufpel-dark-border};
+    
+    // Adjust UFPel colors for dark theme
+    --ufpel-primary-500: #{lighten($ufpel-blue-primary, 15%)};
+    --ufpel-secondary-500: #{lighten($ufpel-blue-secondary, 10%)};
+    --ufpel-accent-500: #{lighten($ufpel-orange-accent, 10%)};
+    
+    // Dark theme specific elements
+    .card {
+        background-color: var(--ufpel-bg-secondary);
+        border-color: var(--ufpel-border-color);
+        color: var(--ufpel-text-primary);
+    }
+    
+    .navbar {
+        background-color: var(--ufpel-bg-secondary) !important;
+        border-bottom: 1px solid var(--ufpel-border-color);
+    }
+    
+    .course-header__overlay {
+        background: linear-gradient(135deg, 
+            rgba(13, 17, 23, 0.8), 
+            rgba(0, 64, 143, 0.6)
+        );
+    }
+}
+
+// =============================================================================
+// Semantic Color Applications
+// =============================================================================
+
+// Success state colors
+.text-success-ufpel { color: var(--ufpel-success) !important; }
+.bg-success-ufpel { background-color: var(--ufpel-success-light) !important; }
+.border-success-ufpel { border-color: var(--ufpel-success) !important; }
+
+// Warning state colors
+.text-warning-ufpel { color: var(--ufpel-warning-dark) !important; }
+.bg-warning-ufpel { background-color: var(--ufpel-warning-light) !important; }
+.border-warning-ufpel { border-color: var(--ufpel-warning) !important; }
+
+// Error/danger state colors
+.text-danger-ufpel { color: var(--ufpel-danger) !important; }
+.bg-danger-ufpel { background-color: var(--ufpel-danger-light) !important; }
+.border-danger-ufpel { border-color: var(--ufpel-danger) !important; }
+
+// Info state colors
+.text-info-ufpel { color: var(--ufpel-info) !important; }
+.bg-info-ufpel { background-color: var(--ufpel-info-light) !important; }
+.border-info-ufpel { border-color: var(--ufpel-info) !important; }
+
+// =============================================================================
+// Context-Specific Color Applications
+// =============================================================================
+
+// Course completion colors
+.completion-complete {
+    color: var(--ufpel-success) !important;
+    background-color: var(--ufpel-success-light) !important;
+}
+
+.completion-incomplete {
+    color: var(--ufpel-warning) !important;
+    background-color: var(--ufpel-warning-light) !important;
+}
+
+.completion-overdue {
+    color: var(--ufpel-danger) !important;
+    background-color: var(--ufpel-danger-light) !important;
+}
+
+// Grade colors
+.grade-excellent {
+    color: var(--ufpel-success) !important;
+    background-color: var(--ufpel-success-light) !important;
+}
+
+.grade-good {
+    color: var(--ufpel-primary-500) !important;
+    background-color: var(--ufpel-primary-50) !important;
+}
+
+.grade-satisfactory {
+    color: var(--ufpel-warning) !important;
+    background-color: var(--ufpel-warning-light) !important;
+}
+
+.grade-needs-improvement {
+    color: var(--ufpel-danger) !important;
+    background-color: var(--ufpel-danger-light) !important;
+}
+
+// Activity type colors
+.activity-assignment {
+    border-left: 4px solid var(--ufpel-primary-500);
+    background-color: var(--ufpel-primary-50);
+}
+
+.activity-quiz {
+    border-left: 4px solid var(--ufpel-accent-500);
+    background-color: var(--ufpel-accent-50);
+}
+
+.activity-forum {
+    border-left: 4px solid var(--ufpel-secondary-500);
+    background-color: var(--ufpel-secondary-50);
+}
+
+.activity-resource {
+    border-left: 4px solid var(--ufpel-neutral-600);
+    background-color: var(--ufpel-neutral-50);
+}
+
+// =============================================================================
+// Alpha/Opacity Color Utilities
+// =============================================================================
+
+// UFPel colors with opacity levels
+@for $i from 1 through 9 {
+    $opacity: $i * 0.1;
+    
+    .bg-ufpel-primary-alpha-#{$i} {
+        background-color: rgba(0, 64, 143, $opacity) !important;
+    }
+    
+    .bg-ufpel-secondary-alpha-#{$i} {
+        background-color: rgba(0, 128, 255, $opacity) !important;
+    }
+    
+    .bg-ufpel-accent-alpha-#{$i} {
+        background-color: rgba(247, 166, 0, $opacity) !important;
+    }
+    
+    .text-ufpel-primary-alpha-#{$i} {
+        color: rgba(0, 64, 143, $opacity) !important;
+    }
+}
+
+// =============================================================================
+// Color Animation Classes
+// =============================================================================
+
+// Smooth color transitions
+.color-transition {
+    transition: color $ufpel-transition-base ease,
+                background-color $ufpel-transition-base ease,
+                border-color $ufpel-transition-base ease;
+}
+
+// Color hover effects
+.color-hover-lift {
+    transition: $ufpel-transition-default;
+    
+    &:hover {
+        color: var(--ufpel-primary-600) !important;
+        transform: translateY(-1px);
+    }
+}
+
+// Pulsing color effect for notifications
+@keyframes ufpel-pulse-primary {
+    0%, 100% { 
+        background-color: var(--ufpel-primary-500);
+        transform: scale(1);
+    }
+    50% { 
+        background-color: var(--ufpel-primary-400);
+        transform: scale(1.05);
+    }
+}
+
+.pulse-ufpel-primary {
+    animation: ufpel-pulse-primary 2s infinite ease-in-out;
+}
+
+// =============================================================================
+// Status and State Colors
+// =============================================================================
+
+// Online/offline status
+.status-online {
+    color: var(--ufpel-success) !important;
+}
+
+.status-offline {
+    color: var(--ufpel-neutral-500) !important;
+}
+
+.status-away {
+    color: var(--ufpel-warning) !important;
+}
+
+.status-busy {
+    color: var(--ufpel-danger) !important;
+}
+
+// Priority levels
+.priority-high {
+    color: var(--ufpel-danger) !important;
+    background-color: var(--ufpel-danger-light) !important;
+}
+
+.priority-medium {
+    color: var(--ufpel-warning) !important;
+    background-color: var(--ufpel-warning-light) !important;
+}
+
+.priority-low {
+    color: var(--ufpel-info) !important;
+    background-color: var(--ufpel-info-light) !important;
+}
+
+// =============================================================================
+// Print Color Adjustments
+// =============================================================================
+
+@media print {
+    * {
+        color: black !important;
+        background: white !important;
+        box-shadow: none !important;
+    }
+    
+    .text-ufpel-primary,
+    .text-ufpel-secondary,
+    .text-ufpel-accent {
+        color: black !important;
+    }
+    
+    .bg-ufpel-primary,
+    .bg-ufpel-secondary,
+    .bg-ufpel-accent {
+        background: white !important;
+        border: 1px solid black !important;
+    }
+    
+    // Preserve important visual hierarchy
+    .course-header__title {
+        color: black !important;
+        font-weight: bold !important;
+    }
+    
+    .card-header {
+        background: #f8f9fa !important;
+        color: black !important;
+        border-bottom: 1px solid black !important;
+    }
+}
+
+// =============================================================================
+// Color Utility Mixins
+// =============================================================================
+
+// Mixin for UFPel brand gradient
+@mixin ufpel-gradient($direction: 135deg, $color1: $ufpel-blue-primary, $color2: $ufpel-blue-secondary, $opacity1: 1, $opacity2: 1) {
+    background: linear-gradient(
+        $direction,
+        rgba($color1, $opacity1),
+        rgba($color2, $opacity2)
+    );
+}
+
+// Mixin for UFPel shadow with brand colors
+@mixin ufpel-shadow($level: 'md', $color: $ufpel-blue-primary, $opacity: 0.15) {
+    @if $level == 'sm' {
+        box-shadow: 0 2px 4px rgba($color, $opacity);
+    } @else if $level == 'md' {
+        box-shadow: 0 4px 6px rgba($color, $opacity);
+    } @else if $level == 'lg' {
+        box-shadow: 0 10px 25px rgba($color, $opacity);
+    } @else if $level == 'xl' {
+        box-shadow: 0 20px 40px rgba($color, $opacity);
+    }
+}
+
+// Mixin for color accessibility compliance
+@mixin ufpel-accessible-color($bg-color, $text-color: null) {
+    background-color: $bg-color;
+    
+    @if $text-color {
+        color: $text-color;
+    } @else {
+        // Auto-determine text color based on background
+        @if lightness($bg-color) > 50% {
+            color: var(--ufpel-text-primary);
+        } @else {
+            color: var(--ufpel-text-highlight);
+        }
+    }
+}

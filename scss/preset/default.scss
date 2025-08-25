@@ -1,0 +1,345 @@
+/**
+ * UFPel Theme Default SCSS Preset for Moodle 5.0
+ * 
+ * This preset extends the Boost theme with UFPel customizations.
+ * Built for Bootstrap 5 and Moodle 5.0+
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas (UFPel)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// Import Boost's default preset first (Bootstrap 5 base).
+@import "../../boost/scss/preset/default";
+
+// UFPel Color Variables - Override Bootstrap defaults.
+:root {
+    // Primary UFPel colors.
+    --ufpel-primary: #{$ufpel-primary};
+    --ufpel-secondary: #{$ufpel-secondary};
+    --ufpel-accent: #{$ufpel-accent};
+    --ufpel-background: #{$ufpel-background};
+    --ufpel-text: #{$ufpel-text};
+    --ufpel-text-highlight: #{$ufpel-text-highlight};
+    
+    // Dark mode colors.
+    --ufpel-primary-dark: #{$ufpel-primary-dark};
+    --ufpel-background-dark: #{$ufpel-background-dark};
+    --ufpel-text-dark: #{$ufpel-text-dark};
+    
+    // Bootstrap 5 CSS custom properties override.
+    --bs-primary: #{$primary};
+    --bs-secondary: #{$secondary};
+    --bs-warning: #{$warning};
+    --bs-light: #{$light};
+    --bs-dark: #{$dark};
+}
+
+// UFPel Brand Identity.
+.ufpel-brand {
+    &__logo {
+        max-height: 50px;
+        width: auto;
+        
+        @include media-breakpoint-down(md) {
+            max-height: 40px;
+        }
+    }
+    
+    &__text {
+        color: var(--ufpel-primary);
+        font-weight: 600;
+    }
+}
+
+// Navbar customizations for UFPel.
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    
+    .ufpel-brand__logo {
+        margin-right: 0;
+    }
+    
+    .ufpel-brand__text {
+        font-size: 1.25rem;
+        
+        @include media-breakpoint-down(md) {
+            font-size: 1rem;
+        }
+    }
+}
+
+// Course header with UFPel styling.
+.course-header {
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+    background: linear-gradient(135deg, var(--ufpel-primary), var(--ufpel-secondary));
+    
+    &__background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; // Parallax effect.
+        
+        // Progressive enhancement for parallax support.
+        @supports (background-attachment: fixed) {
+            will-change: transform;
+        }
+        
+        // Disable parallax on mobile for performance.
+        @include media-breakpoint-down(md) {
+            background-attachment: scroll;
+        }
+    }
+    
+    &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 64, 143, 0.8),
+            rgba(0, 128, 255, 0.6)
+        );
+    }
+    
+    &__content {
+        position: relative;
+        z-index: 2;
+        padding: 2rem 0;
+        color: var(--ufpel-text-highlight);
+        
+        @include media-breakpoint-up(lg) {
+            padding: 3rem 0;
+        }
+    }
+    
+    &__title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        
+        @include media-breakpoint-down(lg) {
+            font-size: 2rem;
+        }
+        
+        @include media-breakpoint-down(md) {
+            font-size: 1.75rem;
+        }
+    }
+    
+    &__info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 1.5rem;
+        
+        @include media-breakpoint-down(md) {
+            gap: 1rem;
+            flex-direction: column;
+        }
+    }
+    
+    &__teachers,
+    &__participants {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        
+        .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+    }
+    
+    &__teachers-list {
+        display: flex;
+        gap: 0.5rem;
+        
+        .teacher-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--ufpel-text-highlight);
+        }
+    }
+}
+
+// Card component customizations.
+.card {
+    border: 1px solid rgba(0, 64, 143, 0.1);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    
+    &:hover {
+        box-shadow: 0 8px 25px rgba(0, 64, 143, 0.15);
+        transform: translateY(-2px);
+    }
+    
+    &-header {
+        background: linear-gradient(135deg, var(--ufpel-background), rgba(0, 128, 255, 0.05));
+        border-bottom: 1px solid rgba(0, 64, 143, 0.1);
+        font-weight: 600;
+        color: var(--ufpel-primary);
+    }
+    
+    &-body {
+        padding: 1.5rem;
+    }
+    
+    // UFPel card variants.
+    &.ufpel-primary {
+        border-color: var(--ufpel-primary);
+        
+        .card-header {
+            background: var(--ufpel-primary);
+            color: var(--ufpel-text-highlight);
+        }
+    }
+    
+    &.ufpel-accent {
+        border-color: var(--ufpel-accent);
+        
+        .card-header {
+            background: var(--ufpel-accent);
+            color: var(--ufpel-text);
+        }
+    }
+}
+
+// Footer customizations.
+#page-footer {
+    background: linear-gradient(135deg, var(--ufpel-primary), rgba(0, 64, 143, 0.9));
+    color: var(--ufpel-text-highlight);
+    
+    a {
+        color: var(--ufpel-text-highlight);
+        
+        &:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+    }
+    
+    .ufpel-footer {
+        &__branding {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            
+            .ufpel-brand__logo {
+                filter: brightness(0) invert(1); // Make logo white.
+            }
+        }
+        
+        &__links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            
+            @include media-breakpoint-down(md) {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    }
+}
+
+// Dark mode support.
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ufpel-primary: var(--ufpel-primary-dark);
+        --ufpel-background: var(--ufpel-background-dark);
+        --ufpel-text: var(--ufpel-text-dark);
+    }
+    
+    body.theme-dark {
+        background-color: var(--ufpel-background-dark);
+        color: var(--ufpel-text-dark);
+    }
+    
+    .card {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+// Mobile-first responsive enhancements.
+@include media-breakpoint-down(sm) {
+    .course-header {
+        min-height: 200px;
+        
+        &__content {
+            padding: 1.5rem 0;
+        }
+        
+        &__title {
+            font-size: 1.5rem;
+        }
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+// Lazy loading enhancement.
+.lazy-loading {
+    &__placeholder {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+    }
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+// High contrast mode support.
+@media (prefers-contrast: high) {
+    :root {
+        --ufpel-primary: #003366;
+        --ufpel-accent: #cc8800;
+    }
+    
+    .card {
+        border-width: 2px;
+    }
+    
+    .course-header__overlay {
+        background: rgba(0, 0, 0, 0.7);
+    }
+}
+
+// Reduced motion support.
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .course-header__background {
+        transition: none !important;
+        animation: none !important;
+        background-attachment: scroll !important;
+    }
+    
+    .lazy-loading__placeholder {
+        animation: none;
+        background: #f0f0f0;
+    }
+}

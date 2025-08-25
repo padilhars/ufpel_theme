@@ -1,0 +1,927 @@
+/**
+ * UFPel Theme Components Module
+ * 
+ * Styled components following UFPel design system and Bootstrap 5 standards.
+ * All components are optimized for accessibility and responsive design.
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas (UFPel)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// =============================================================================
+// UFPel Button Components
+// =============================================================================
+
+// Primary UFPel button
+.btn-ufpel-primary {
+    @include ufpel-gradient();
+    color: var(--ufpel-text-highlight);
+    border: none;
+    font-weight: $ufpel-font-weight-medium;
+    padding: $ufpel-btn-padding-y $ufpel-btn-padding-x;
+    border-radius: $ufpel-btn-border-radius;
+    transition: $ufpel-transition-default;
+    @include ufpel-shadow('sm');
+    
+    &:hover,
+    &:focus {
+        @include ufpel-gradient(135deg, darken($ufpel-blue-primary, 10%), darken($ufpel-blue-secondary, 10%));
+        color: var(--ufpel-text-highlight);
+        transform: translateY(-1px);
+        @include ufpel-shadow('md');
+    }
+    
+    &:active {
+        transform: translateY(0);
+        @include ufpel-shadow('sm');
+    }
+    
+    &:disabled {
+        opacity: $ufpel-opacity-disabled;
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+// Secondary UFPel button
+.btn-ufpel-secondary {
+    background-color: transparent;
+    color: var(--ufpel-primary-500);
+    border: $ufpel-border-width solid var(--ufpel-primary-500);
+    font-weight: $ufpel-font-weight-medium;
+    padding: $ufpel-btn-padding-y $ufpel-btn-padding-x;
+    border-radius: $ufpel-btn-border-radius;
+    transition: $ufpel-transition-default;
+    
+    &:hover,
+    &:focus {
+        background-color: var(--ufpel-primary-500);
+        color: var(--ufpel-text-highlight);
+        border-color: var(--ufpel-primary-500);
+    }
+    
+    &:active {
+        background-color: var(--ufpel-primary-600);
+        border-color: var(--ufpel-primary-600);
+    }
+}
+
+// UFPel accent button
+.btn-ufpel-accent {
+    background-color: var(--ufpel-accent-500);
+    color: var(--ufpel-text-primary);
+    border: none;
+    font-weight: $ufpel-font-weight-medium;
+    padding: $ufpel-btn-padding-y $ufpel-btn-padding-x;
+    border-radius: $ufpel-btn-border-radius;
+    transition: $ufpel-transition-default;
+    @include ufpel-shadow('sm', $ufpel-orange-accent);
+    
+    &:hover,
+    &:focus {
+        background-color: var(--ufpel-accent-600);
+        color: var(--ufpel-text-primary);
+        transform: translateY(-1px);
+        @include ufpel-shadow('md', $ufpel-orange-accent);
+    }
+}
+
+// Button sizes
+.btn-ufpel-sm {
+    padding: 0.375rem 0.75rem;
+    font-size: $ufpel-font-size-sm;
+}
+
+.btn-ufpel-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: $ufpel-font-size-lg;
+}
+
+// =============================================================================
+// UFPel Card Components
+// =============================================================================
+
+.ufpel-card {
+    background: var(--ufpel-bg-secondary, white);
+    border: $ufpel-border-width solid var(--ufpel-border-color);
+    border-radius: $ufpel-card-border-radius;
+    @include ufpel-shadow('sm');
+    transition: $ufpel-transition-default;
+    overflow: hidden;
+    position: relative;
+    
+    // Card hover effect
+    &:hover {
+        transform: translateY($ufpel-hover-lift-distance);
+        @include ufpel-shadow('lg');
+    }
+    
+    // Card header
+    &__header {
+        padding: $ufpel-card-padding;
+        background: linear-gradient(135deg, var(--ufpel-background-light), rgba(0, 128, 255, 0.05));
+        border-bottom: $ufpel-border-width solid var(--ufpel-border-color);
+        font-weight: $ufpel-font-weight-semibold;
+        color: var(--ufpel-primary-500);
+        
+        &.ufpel-primary {
+            @include ufpel-gradient();
+            color: var(--ufpel-text-highlight);
+        }
+        
+        &.ufpel-accent {
+            background: var(--ufpel-accent-500);
+            color: var(--ufpel-text-primary);
+        }
+    }
+    
+    // Card body
+    &__body {
+        padding: $ufpel-card-padding;
+    }
+    
+    // Card footer
+    &__footer {
+        padding: $ufpel-card-padding;
+        background: var(--ufpel-neutral-50);
+        border-top: $ufpel-border-width solid var(--ufpel-border-color);
+        font-size: $ufpel-font-size-sm;
+    }
+    
+    // Card variants
+    &.ufpel-elevated {
+        @include ufpel-shadow('md');
+        
+        &:hover {
+            @include ufpel-shadow('xl');
+        }
+    }
+    
+    &.ufpel-bordered {
+        border: $ufpel-border-width-thick solid var(--ufpel-primary-500);
+    }
+    
+    &.ufpel-gradient {
+        @include ufpel-gradient(135deg, var(--ufpel-primary-500), var(--ufpel-secondary-500), 0.1, 0.05);
+    }
+}
+
+// =============================================================================
+// UFPel Alert Components
+// =============================================================================
+
+.alert-ufpel {
+    padding: 1rem 1.25rem;
+    border-radius: $ufpel-border-radius-md;
+    border: none;
+    border-left: $ufpel-border-width-accent solid;
+    font-weight: $ufpel-font-weight-medium;
+    
+    &.alert-ufpel-primary {
+        background: linear-gradient(135deg, rgba(0, 128, 255, 0.1), rgba(235, 245, 255, 0.8));
+        color: var(--ufpel-primary-700);
+        border-left-color: var(--ufpel-primary-500);
+        
+        .alert-link {
+            color: var(--ufpel-primary-800);
+            text-decoration: underline;
+        }
+    }
+    
+    &.alert-ufpel-success {
+        background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(235, 245, 255, 0.8));
+        color: darken($ufpel-success, 20%);
+        border-left-color: var(--ufpel-success);
+    }
+    
+    &.alert-ufpel-warning {
+        background: linear-gradient(135deg, rgba(247, 166, 0, 0.1), rgba(255, 248, 235, 0.8));
+        color: darken($ufpel-orange-accent, 20%);
+        border-left-color: var(--ufpel-accent-500);
+    }
+    
+    &.alert-ufpel-danger {
+        background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(248, 215, 218, 0.8));
+        color: darken($ufpel-danger, 10%);
+        border-left-color: var(--ufpel-danger);
+    }
+    
+    // Alert with icon
+    &.with-icon {
+        display: flex;
+        align-items: flex-start;
+        
+        .alert-icon {
+            margin-right: 0.75rem;
+            margin-top: 0.125rem;
+            font-size: 1.25rem;
+        }
+        
+        .alert-content {
+            flex: 1;
+        }
+    }
+    
+    // Dismissible alert
+    &.alert-dismissible {
+        .btn-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.75rem;
+            padding: 0.25rem;
+            opacity: 0.7;
+            
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+// =============================================================================
+// UFPel Badge Components
+// =============================================================================
+
+.badge-ufpel {
+    font-size: $ufpel-badge-font-size;
+    padding: $ufpel-badge-padding-y $ufpel-badge-padding-x;
+    border-radius: $ufpel-border-radius-pill;
+    font-weight: $ufpel-font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    
+    &.badge-ufpel-primary {
+        background-color: var(--ufpel-primary-500);
+        color: var(--ufpel-text-highlight);
+    }
+    
+    &.badge-ufpel-secondary {
+        background-color: var(--ufpel-secondary-500);
+        color: var(--ufpel-text-highlight);
+    }
+    
+    &.badge-ufpel-accent {
+        background-color: var(--ufpel-accent-500);
+        color: var(--ufpel-text-primary);
+    }
+    
+    &.badge-ufpel-outline {
+        background-color: transparent;
+        border: 1px solid var(--ufpel-primary-500);
+        color: var(--ufpel-primary-500);
+        
+        &.badge-ufpel-accent {
+            border-color: var(--ufpel-accent-500);
+            color: var(--ufpel-accent-500);
+        }
+    }
+    
+    // Animated badge
+    &.pulse {
+        animation: ufpel-pulse-primary 2s infinite ease-in-out;
+    }
+}
+
+// =============================================================================
+// UFPel Progress Components
+// =============================================================================
+
+.progress-ufpel {
+    height: 0.75rem;
+    background-color: var(--ufpel-neutral-200);
+    border-radius: $ufpel-border-radius-pill;
+    overflow: hidden;
+    @include ufpel-shadow('sm');
+    
+    &__bar {
+        @include ufpel-gradient();
+        height: 100%;
+        transition: width 0.6s ease;
+        position: relative;
+        
+        // Animated stripe effect
+        &.striped {
+            background-image: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.15) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.15) 75%,
+                transparent 75%,
+                transparent
+            );
+            background-size: 1rem 1rem;
+            animation: progress-bar-stripes 1s linear infinite;
+        }
+        
+        // Progress text
+        &__text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--ufpel-text-highlight);
+            font-size: $ufpel-font-size-sm;
+            font-weight: $ufpel-font-weight-medium;
+        }
+    }
+    
+    // Progress variants
+    &.progress-sm {
+        height: 0.5rem;
+    }
+    
+    &.progress-lg {
+        height: 1rem;
+    }
+    
+    &.progress-accent {
+        .progress-ufpel__bar {
+            background: var(--ufpel-accent-500);
+        }
+    }
+}
+
+@keyframes progress-bar-stripes {
+    0% { background-position: 1rem 0; }
+    100% { background-position: 0 0; }
+}
+
+// =============================================================================
+// UFPel Navigation Components
+// =============================================================================
+
+.nav-ufpel {
+    .nav-link {
+        color: var(--ufpel-text-primary);
+        font-weight: $ufpel-font-weight-medium;
+        padding: 0.75rem 1rem;
+        border-radius: $ufpel-border-radius;
+        transition: $ufpel-transition-default;
+        
+        &:hover {
+            background-color: var(--ufpel-primary-50);
+            color: var(--ufpel-primary-600);
+        }
+        
+        &.active {
+            background-color: var(--ufpel-primary-500);
+            color: var(--ufpel-text-highlight);
+            @include ufpel-shadow('sm');
+        }
+        
+        // Nav with icons
+        .nav-icon {
+            margin-right: 0.5rem;
+            font-size: 1.1em;
+        }
+    }
+    
+    // Vertical navigation
+    &.nav-vertical {
+        flex-direction: column;
+        
+        .nav-link {
+            border-left: 3px solid transparent;
+            border-radius: 0 $ufpel-border-radius $ufpel-border-radius 0;
+            
+            &.active {
+                border-left-color: var(--ufpel-primary-500);
+                background-color: var(--ufpel-primary-50);
+                color: var(--ufpel-primary-700);
+            }
+        }
+    }
+    
+    // Pills style navigation
+    &.nav-pills {
+        .nav-link {
+            border-radius: $ufpel-border-radius-pill;
+            
+            &.active {
+                @include ufpel-gradient();
+                color: var(--ufpel-text-highlight);
+            }
+        }
+    }
+}
+
+// =============================================================================
+// UFPel Breadcrumb Components
+// =============================================================================
+
+.breadcrumb-ufpel {
+    background: linear-gradient(135deg, var(--ufpel-primary-50), rgba(255, 255, 255, 0.8));
+    border-radius: $ufpel-border-radius-md;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    @include ufpel-shadow('sm');
+    
+    .breadcrumb-item {
+        font-weight: $ufpel-font-weight-medium;
+        
+        &:not(.active) {
+            a {
+                color: var(--ufpel-primary-600);
+                text-decoration: none;
+                transition: color $ufpel-transition-fast ease;
+                
+                &:hover {
+                    color: var(--ufpel-primary-700);
+                    text-decoration: underline;
+                }
+            }
+        }
+        
+        &.active {
+            color: var(--ufpel-primary-700);
+            font-weight: $ufpel-font-weight-semibold;
+        }
+        
+        &::before {
+            color: var(--ufpel-primary-400);
+        }
+        
+        // Breadcrumb with icons
+        .breadcrumb-icon {
+            margin-right: 0.5rem;
+        }
+    }
+}
+
+// =============================================================================
+// UFPel Modal Components
+// =============================================================================
+
+.modal-ufpel {
+    .modal-header {
+        @include ufpel-gradient(135deg, var(--ufpel-background-light), rgba(0, 128, 255, 0.1));
+        color: var(--ufpel-primary-700);
+        border-bottom: $ufpel-border-width solid var(--ufpel-border-color);
+        
+        .modal-title {
+            font-weight: $ufpel-font-weight-semibold;
+        }
+        
+        .btn-close {
+            opacity: 0.7;
+            
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+    
+    .modal-body {
+        padding: 1.5rem;
+    }
+    
+    .modal-footer {
+        border-top: $ufpel-border-width solid var(--ufpel-border-color);
+        background: var(--ufpel-neutral-50);
+    }
+    
+    // Modal variants
+    &.modal-ufpel-primary {
+        .modal-header {
+            @include ufpel-gradient();
+            color: var(--ufpel-text-highlight);
+            border-bottom: none;
+        }
+    }
+    
+    &.modal-ufpel-large {
+        .modal-dialog {
+            max-width: 90vw;
+        }
+    }
+}
+
+// =============================================================================
+// UFPel Table Components
+// =============================================================================
+
+.table-ufpel {
+    color: var(--ufpel-text-primary);
+    
+    thead {
+        th {
+            background: var(--ufpel-background-light);
+            color: var(--ufpel-primary-700);
+            font-weight: $ufpel-font-weight-semibold;
+            border-bottom: $ufpel-border-width-thick solid var(--ufpel-primary-500);
+            padding: 1rem 0.75rem;
+            position: relative;
+            
+            // Sortable columns
+            &.sortable {
+                cursor: pointer;
+                user-select: none;
+                transition: background-color $ufpel-transition-fast ease;
+                
+                &:hover {
+                    background-color: var(--ufpel-primary-100);
+                }
+                
+                &::after {
+                    content: '';
+                    position: absolute;
+                    right: 0.5rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 0;
+                    height: 0;
+                    border-left: 4px solid transparent;
+                    border-right: 4px solid transparent;
+                    border-bottom: 4px solid var(--ufpel-primary-400);
+                    opacity: 0.5;
+                }
+                
+                &.asc::after {
+                    border-bottom: 4px solid var(--ufpel-primary-600);
+                    border-top: none;
+                    opacity: 1;
+                }
+                
+                &.desc::after {
+                    border-top: 4px solid var(--ufpel-primary-600);
+                    border-bottom: none;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    
+    tbody {
+        tr {
+            transition: background-color $ufpel-transition-fast ease;
+            
+            &:hover {
+                background-color: var(--ufpel-primary-50);
+            }
+            
+            &.table-active {
+                background-color: var(--ufpel-primary-100);
+            }
+        }
+        
+        td {
+            padding: 0.75rem;
+            vertical-align: middle;
+            border-top: $ufpel-border-width solid var(--ufpel-border-color);
+        }
+    }
+    
+    // Striped table
+    &.table-striped {
+        tbody tr:nth-of-type(odd) {
+            background-color: rgba(235, 245, 255, 0.3);
+        }
+    }
+    
+    // Bordered table
+    &.table-bordered {
+        border: $ufpel-border-width solid var(--ufpel-border-color);
+        
+        th,
+        td {
+            border: $ufpel-border-width solid var(--ufpel-border-color);
+        }
+    }
+    
+    // Responsive table wrapper
+    &-responsive {
+        border-radius: $ufpel-border-radius-md;
+        @include ufpel-shadow('sm');
+        overflow: hidden;
+    }
+}
+
+// =============================================================================
+// UFPel Form Components
+// =============================================================================
+
+.form-ufpel {
+    .form-label {
+        font-weight: $ufpel-font-weight-medium;
+        color: var(--ufpel-primary-700);
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-control {
+        border: $ufpel-border-width solid var(--ufpel-border-color);
+        border-radius: $ufpel-input-border-radius;
+        padding: $ufpel-input-padding-y $ufpel-input-padding-x;
+        transition: $ufpel-transition-default;
+        
+        &:focus {
+            border-color: var(--ufpel-primary-500);
+            box-shadow: $ufpel-input-focus-box-shadow;
+            outline: none;
+        }
+        
+        &.is-valid {
+            border-color: var(--ufpel-success);
+            
+            &:focus {
+                box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+            }
+        }
+        
+        &.is-invalid {
+            border-color: var(--ufpel-danger);
+            
+            &:focus {
+                box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+            }
+        }
+    }
+    
+    .form-select {
+        @extend .form-control;
+    }
+    
+    .form-check {
+        .form-check-input {
+            &:checked {
+                background-color: var(--ufpel-primary-500);
+                border-color: var(--ufpel-primary-500);
+            }
+            
+            &:focus {
+                border-color: var(--ufpel-primary-300);
+                box-shadow: 0 0 0 0.2rem rgba(0, 64, 143, 0.25);
+            }
+        }
+        
+        .form-check-label {
+            font-weight: $ufpel-font-weight-normal;
+        }
+    }
+    
+    .input-group {
+        .input-group-text {
+            background: var(--ufpel-background-light);
+            border-color: var(--ufpel-border-color);
+            color: var(--ufpel-primary-600);
+        }
+    }
+    
+    // Form validation feedback
+    .valid-feedback {
+        color: var(--ufpel-success);
+        font-weight: $ufpel-font-weight-medium;
+    }
+    
+    .invalid-feedback {
+        color: var(--ufpel-danger);
+        font-weight: $ufpel-font-weight-medium;
+    }
+}
+
+// =============================================================================
+// UFPel Loading Components
+// =============================================================================
+
+.spinner-ufpel {
+    width: 2rem;
+    height: 2rem;
+    border: 0.25em solid var(--ufpel-primary-200);
+    border-right-color: var(--ufpel-primary-500);
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+    
+    &.spinner-sm {
+        width: 1rem;
+        height: 1rem;
+        border-width: 0.125em;
+    }
+    
+    &.spinner-lg {
+        width: 3rem;
+        height: 3rem;
+        border-width: 0.375em;
+    }
+    
+    // UFPel gradient spinner
+    &.spinner-gradient {
+        background: conic-gradient(from 0deg, var(--ufpel-primary-500), var(--ufpel-secondary-500), var(--ufpel-primary-500));
+        border: none;
+        border-radius: 50%;
+        position: relative;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0.25em;
+            background: var(--ufpel-bg-primary, white);
+            border-radius: 50%;
+        }
+    }
+}
+
+// Loading skeleton
+.skeleton-ufpel {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: $ufpel-border-radius;
+    
+    &__text {
+        height: 1rem;
+        margin-bottom: 0.5rem;
+        
+        &:last-child {
+            width: 60%;
+            margin-bottom: 0;
+        }
+    }
+    
+    &__circle {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+    }
+    
+    &__rect {
+        height: 200px;
+    }
+}
+
+// =============================================================================
+// UFPel Accessibility Components
+// =============================================================================
+
+// Skip links
+.skip-links {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    
+    a {
+        display: block;
+        background: var(--ufpel-primary-500);
+        color: var(--ufpel-text-highlight);
+        padding: $ufpel-skip-link-padding;
+        text-decoration: none;
+        font-weight: $ufpel-font-weight-medium;
+        transform: translateY(-100%);
+        transition: transform $ufpel-transition-fast ease;
+        
+        &:focus {
+            transform: translateY(0);
+            outline: $ufpel-focus-outline-width solid $ufpel-focus-outline-color;
+            outline-offset: $ufpel-focus-outline-offset;
+        }
+    }
+}
+
+// Focus indicators
+.focus-visible-ufpel {
+    &:focus-visible {
+        outline: $ufpel-focus-outline-width solid var(--ufpel-primary-500);
+        outline-offset: $ufpel-focus-outline-offset;
+        border-radius: $ufpel-border-radius;
+    }
+}
+
+// Screen reader only content
+.sr-only-ufpel {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+    
+    &.sr-only-focusable {
+        &:focus,
+        &:active {
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            overflow: visible !important;
+            clip: auto !important;
+            white-space: normal !important;
+            background-color: var(--ufpel-accent-500);
+            color: var(--ufpel-text-primary);
+            padding: 0.5rem;
+            border-radius: $ufpel-border-radius;
+            @include ufpel-shadow('md');
+        }
+    }
+}
+
+// =============================================================================
+// Responsive Component Adjustments
+// =============================================================================
+
+@media (max-width: $ufpel-mobile-max) {
+    .ufpel-card {
+        margin-bottom: 1rem;
+        
+        &__body {
+            padding: 1rem;
+        }
+    }
+    
+    .btn-ufpel-primary,
+    .btn-ufpel-secondary,
+    .btn-ufpel-accent {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    
+    .table-ufpel {
+        font-size: $ufpel-font-size-sm;
+        
+        th,
+        td {
+            padding: 0.5rem 0.25rem;
+        }
+    }
+    
+    .progress-ufpel {
+        height: 0.5rem;
+        
+        &__bar__text {
+            font-size: 0.75rem;
+        }
+    }
+}
+
+// =============================================================================
+// Dark Mode Component Adjustments
+// =============================================================================
+
+.theme-dark {
+    .ufpel-card {
+        background-color: var(--ufpel-bg-secondary);
+        border-color: var(--ufpel-border-color);
+        color: var(--ufpel-text-primary);
+    }
+    
+    .breadcrumb-ufpel {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 64, 143, 0.1));
+        color: var(--ufpel-text-primary);
+    }
+    
+    .table-ufpel {
+        color: var(--ufpel-text-primary);
+        
+        thead th {
+            background: var(--ufpel-bg-secondary);
+            color: var(--ufpel-primary-400);
+        }
+        
+        tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+    
+    .skeleton-ufpel {
+        background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+        background-size: 200% 100%;
+    }
+}
+
+// =============================================================================
+// Print Component Adjustments
+// =============================================================================
+
+@media print {
+    .ufpel-card,
+    .alert-ufpel,
+    .table-ufpel {
+        box-shadow: none !important;
+        background: white !important;
+        color: black !important;
+        border: 1px solid black !important;
+    }
+    
+    .btn-ufpel-primary,
+    .btn-ufpel-secondary,
+    .btn-ufpel-accent {
+        display: none !important;
+    }
+    
+    .spinner-ufpel,
+    .skeleton-ufpel {
+        display: none !important;
+    }
+    
+    .skip-links {
+        display: none !important;
+    }
+}

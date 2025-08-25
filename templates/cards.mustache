@@ -1,0 +1,500 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_ufpel/cards
+
+    UFPel Custom Cards Template
+
+    This template provides reusable card components with UFPel branding
+    for various content types like courses, activities, and information blocks.
+
+    Context variables:
+    * cards - Array of card objects
+    * card_type - Type of cards (course, activity, info, announcement)
+    * show_images - Show card images (boolean)
+    * lazy_loading - Enable lazy loading (boolean)
+    
+    Card object structure:
+    {
+        "id": "unique-id",
+        "title": "Card Title", 
+        "subtitle": "Card Subtitle",
+        "description": "Card description text",
+        "image_url": "https://example.com/image.jpg",
+        "link_url": "https://example.com/target",
+        "link_text": "Action Button Text",
+        "badge_text": "Badge Label",
+        "badge_type": "primary|secondary|accent",
+        "meta_info": ["Info 1", "Info 2"],
+        "show_progress": true,
+        "progress_value": 75,
+        "completion_status": "complete|incomplete|overdue"
+    }
+}}
+
+{{#cards}}
+<div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4" data-card-type="{{card_type}}">
+    <div class="card ufpel-card h-100 {{#card_type}}ufpel-{{card_type}}{{/card_type}}" 
+         data-card-id="{{id}}"
+         role="article"
+         aria-labelledby="card-title-{{id}}">
+        
+        {{! Card header with image }}
+        {{#show_images}}
+        {{#image_url}}
+        <div class="card-img-top-container position-relative overflow-hidden">
+            {{#lazy_loading}}
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                 data-src="{{image_url}}" 
+                 alt="{{title}}"
+                 class="card-img-top lazy-load"
+                 style="height: 200px; object-fit: cover;"
+                 loading="lazy">
+            {{/lazy_loading}}
+            {{^lazy_loading}}
+            <img src="{{image_url}}" 
+                 alt="{{title}}"
+                 class="card-img-top"
+                 style="height: 200px; object-fit: cover;"
+                 loading="lazy">
+            {{/lazy_loading}}
+            
+            {{! Badge overlay }}
+            {{#badge_text}}
+            <div class="position-absolute top-0 end-0 m-2">
+                <span class="badge bg-{{badge_type}} {{#badge_type}}ufpel-badge-{{badge_type}}{{/badge_type}} px-3 py-2">
+                    {{badge_text}}
+                </span>
+            </div>
+            {{/badge_text}}
+            
+            {{! Completion status indicator }}
+            {{#completion_status}}
+            <div class="position-absolute top-0 start-0 m-2">
+                <span class="completion-indicator completion-{{completion_status}}" 
+                      title="{{#str}}completion_{{completion_status}}, theme_ufpel{{/str}}"
+                      aria-label="{{#str}}completion_{{completion_status}}, theme_ufpel{{/str}}">
+                    {{#completion_status}}
+                    {{#eq completion_status "complete"}}
+                        <i class="fa fa-check-circle text-success" aria-hidden="true"></i>
+                    {{/eq}}
+                    {{#eq completion_status "incomplete"}}
+                        <i class="fa fa-clock text-warning" aria-hidden="true"></i>
+                    {{/eq}}
+                    {{#eq completion_status "overdue"}}
+                        <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
+                    {{/eq}}
+                    {{/completion_status}}
+                </span>
+            </div>
+            {{/completion_status}}
+        </div>
+        {{/image_url}}
+        {{/show_images}}
+        
+        {{! Card body }}
+        <div class="card-body d-flex flex-column">
+            
+            {{! Card title }}
+            <h5 id="card-title-{{id}}" class="card-title ufpel-card__title">
+                {{#link_url}}
+                <a href="{{link_url}}" 
+                   class="text-decoration-none stretched-link"
+                   title="{{title}}">
+                    {{title}}
+                </a>
+                {{/link_url}}
+                {{^link_url}}
+                {{title}}
+                {{/link_url}}
+            </h5>
+            
+            {{! Card subtitle }}
+            {{#subtitle}}
+            <h6 class="card-subtitle mb-2 text-muted ufpel-card__subtitle">
+                {{subtitle}}
+            </h6>
+            {{/subtitle}}
+            
+            {{! Card description }}
+            {{#description}}
+            <p class="card-text ufpel-card__description">
+                {{description}}
+            </p>
+            {{/description}}
+            
+            {{! Meta information }}
+            {{#meta_info}}
+            <div class="ufpel-card__meta mb-2">
+                {{#.}}
+                <small class="text-muted d-block">
+                    <i class="fa fa-info-circle me-1" aria-hidden="true"></i>
+                    {{.}}
+                </small>
+                {{/.}}
+            </div>
+            {{/meta_info}}
+            
+            {{! Progress bar }}
+            {{#show_progress}}
+            {{#progress_value}}
+            <div class="ufpel-card__progress mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <small class="text-muted">{{#str}}progress, theme_ufpel{{/str}}</small>
+                    <small class="text-muted">{{progress_value}}%</small>
+                </div>
+                <div class="progress" style="height: 6px;" role="progressbar" 
+                     aria-valuenow="{{progress_value}}" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100">
+                    <div class="progress-bar" 
+                         style="width: {{progress_value}}%">
+                    </div>
+                </div>
+            </div>
+            {{/progress_value}}
+            {{/show_progress}}
+            
+            {{! Card footer with action button }}
+            <div class="mt-auto">
+                {{#link_url}}
+                {{#link_text}}
+                <a href="{{link_url}}" 
+                   class="btn btn-primary btn-sm ufpel-card__action"
+                   role="button">
+                    {{link_text}}
+                    <i class="fa fa-arrow-right ms-2" aria-hidden="true"></i>
+                </a>
+                {{/link_text}}
+                {{/link_url}}
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+{{/cards}}
+
+{{! No cards message }}
+{{^cards}}
+<div class="col-12">
+    <div class="alert alert-info ufpel-alert d-flex align-items-center" role="alert">
+        <i class="fa fa-info-circle me-3" aria-hidden="true"></i>
+        <div>
+            <h6 class="alert-heading mb-1">{{#str}}nocards, theme_ufpel{{/str}}</h6>
+            <p class="mb-0">{{#str}}nocardsdesc, theme_ufpel{{/str}}</p>
+        </div>
+    </div>
+</div>
+{{/cards}}
+
+{{! Initialize lazy loading if enabled }}
+{{#lazy_loading}}
+{{#js}}
+require(['theme_ufpel/lazy-loading'], function(LazyLoading) {
+    LazyLoading.init({
+        selector: '.lazy-load',
+        threshold: 0.1,
+        fadeInDuration: 300
+    });
+});
+{{/js}}
+{{/lazy_loading}}
+
+{{! Card styles and enhancements }}
+<style>
+.ufpel-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 64, 143, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.9), 
+        rgba(235, 245, 255, 0.5));
+    backdrop-filter: blur(10px);
+    position: relative;
+}
+
+.ufpel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 64, 143, 0.15);
+    border-color: var(--ufpel-primary);
+}
+
+.ufpel-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--ufpel-primary), var(--ufpel-secondary));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ufpel-card:hover::before {
+    opacity: 1;
+}
+
+.ufpel-card__title a {
+    color: var(--ufpel-primary);
+    transition: color 0.2s ease;
+}
+
+.ufpel-card__title a:hover {
+    color: var(--ufpel-secondary);
+}
+
+.ufpel-card__subtitle {
+    font-weight: 500;
+    color: rgba(0, 64, 143, 0.7) !important;
+}
+
+.ufpel-card__description {
+    color: var(--ufpel-text);
+    line-height: 1.6;
+}
+
+.ufpel-card__action {
+    background: linear-gradient(135deg, var(--ufpel-primary), var(--ufpel-secondary));
+    border: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.ufpel-card__action:hover {
+    background: linear-gradient(135deg, 
+        darken(#00408F, 10%), 
+        darken(#0080FF, 10%));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 64, 143, 0.25);
+}
+
+.ufpel-badge-primary {
+    background: var(--ufpel-primary) !important;
+}
+
+.ufpel-badge-secondary {
+    background: var(--ufpel-secondary) !important;
+}
+
+.ufpel-badge-accent {
+    background: var(--ufpel-accent) !important;
+    color: var(--ufpel-text) !important;
+}
+
+.completion-indicator {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top-container {
+    position: relative;
+    background: linear-gradient(135deg, 
+        rgba(0, 64, 143, 0.1), 
+        rgba(235, 245, 255, 0.3));
+}
+
+.lazy-load {
+    transition: opacity 0.3s ease;
+}
+
+.lazy-load[data-src] {
+    opacity: 0.6;
+}
+
+.lazy-load.loaded {
+    opacity: 1;
+}
+
+/* Card type variations */
+.ufpel-course {
+    border-left: 4px solid var(--ufpel-primary);
+}
+
+.ufpel-activity {
+    border-left: 4px solid var(--ufpel-accent);
+}
+
+.ufpel-info {
+    border-left: 4px solid var(--ufpel-secondary);
+}
+
+.ufpel-announcement {
+    border-left: 4px solid #dc3545;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.95), 
+        rgba(220, 53, 69, 0.05));
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .ufpel-card {
+        margin-bottom: 1rem;
+    }
+    
+    .card-img-top-container img {
+        height: 150px !important;
+    }
+    
+    .ufpel-card__title {
+        font-size: 1rem;
+    }
+    
+    .ufpel-card__action {
+        font-size: 0.875rem;
+        padding: 0.375rem 0.75rem;
+    }
+}
+
+/* Accessibility enhancements */
+@media (prefers-contrast: high) {
+    .ufpel-card {
+        border-width: 2px;
+        border-color: var(--ufpel-primary);
+    }
+    
+    .ufpel-card__title a {
+        text-decoration: underline;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .ufpel-card,
+    .ufpel-card__action,
+    .lazy-load {
+        transition: none !important;
+    }
+    
+    .ufpel-card:hover {
+        transform: none !important;
+    }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    .ufpel-card {
+        background: linear-gradient(135deg, 
+            rgba(26, 26, 26, 0.9), 
+            rgba(0, 64, 143, 0.1));
+        border-color: rgba(255, 255, 255, 0.1);
+        color: var(--ufpel-text-dark);
+    }
+    
+    .ufpel-card__subtitle {
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+    
+    .ufpel-card__description {
+        color: var(--ufpel-text-dark);
+    }
+    
+    .completion-indicator {
+        background: rgba(26, 26, 26, 0.9);
+    }
+}
+
+/* Print styles */
+@media print {
+    .ufpel-card {
+        break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid black !important;
+        background: white !important;
+    }
+    
+    .ufpel-card:hover::before,
+    .completion-indicator,
+    .ufpel-card__action {
+        display: none !important;
+    }
+    
+    .ufpel-card__title a {
+        color: black !important;
+        text-decoration: none !important;
+    }
+    
+    .card-img-top-container {
+        display: none !important;
+    }
+}
+
+/* Animation for card entrance */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ufpel-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Stagger animation for multiple cards */
+.ufpel-card:nth-child(1) { animation-delay: 0.1s; }
+.ufpel-card:nth-child(2) { animation-delay: 0.2s; }
+.ufpel-card:nth-child(3) { animation-delay: 0.3s; }
+.ufpel-card:nth-child(4) { animation-delay: 0.4s; }
+.ufpel-card:nth-child(5) { animation-delay: 0.5s; }
+.ufpel-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Loading placeholder */
+.ufpel-card.loading {
+    pointer-events: none;
+}
+
+.ufpel-card.loading .card-body {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+</style>
+
+{{! Helper for equality check }}
+{{#content}}
+{{#eq}}
+{{#helpers}}
+function eq(a, b, options) {
+    if (a === b) {
+        return options.fn(this);
+    }
+    return options.inverse(this);
+}
+{{/helpers}}
+{{/eq}}
+{{/content}}
