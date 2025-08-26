@@ -1,0 +1,426 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Sistema de cores do tema UFPel
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @author     Seu Nome
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// =============================================================================
+// PALETA DE CORES UFPel
+// =============================================================================
+
+// Classes utilitárias para cores de fundo
+.bg-ufpel-primary {
+    background-color: $ufpel-primary !important;
+    color: $ufpel-text-highlight !important;
+}
+
+.bg-ufpel-secondary {
+    background-color: $ufpel-secondary !important;
+    color: $ufpel-text-highlight !important;
+}
+
+.bg-ufpel-accent {
+    background-color: $ufpel-accent !important;
+    color: $ufpel-text-highlight !important;
+}
+
+.bg-ufpel-background {
+    background-color: $ufpel-background !important;
+    color: $ufpel-text-primary !important;
+}
+
+.bg-ufpel-light {
+    background-color: lighten($ufpel-background, 5%) !important;
+}
+
+.bg-ufpel-dark {
+    background-color: darken($ufpel-secondary, 10%) !important;
+    color: $ufpel-text-highlight !important;
+}
+
+// Classes utilitárias para cores de texto
+.text-ufpel-primary {
+    color: $ufpel-primary !important;
+}
+
+.text-ufpel-secondary {
+    color: $ufpel-secondary !important;
+}
+
+.text-ufpel-accent {
+    color: $ufpel-accent !important;
+}
+
+.text-ufpel-dark {
+    color: $ufpel-text-primary !important;
+}
+
+.text-ufpel-muted {
+    color: $ufpel-text-secondary !important;
+}
+
+.text-ufpel-light {
+    color: $ufpel-text-highlight !important;
+}
+
+// Classes utilitárias para bordas
+.border-ufpel-primary {
+    border-color: $ufpel-primary !important;
+}
+
+.border-ufpel-secondary {
+    border-color: $ufpel-secondary !important;
+}
+
+.border-ufpel-accent {
+    border-color: $ufpel-accent !important;
+}
+
+.border-ufpel-light {
+    border-color: rgba($ufpel-text-secondary, 0.2) !important;
+}
+
+// =============================================================================
+// GRADIENTES UFPel
+// =============================================================================
+
+.bg-gradient-ufpel {
+    background: linear-gradient(135deg, $ufpel-primary 0%, $ufpel-secondary 100%) !important;
+    color: $ufpel-text-highlight !important;
+}
+
+.bg-gradient-ufpel-light {
+    background: linear-gradient(135deg, lighten($ufpel-primary, 10%) 0%, $ufpel-primary 100%) !important;
+    color: $ufpel-text-highlight !important;
+}
+
+.bg-gradient-ufpel-dark {
+    background: linear-gradient(135deg, $ufpel-secondary 0%, darken($ufpel-secondary, 15%) 100%) !important;
+    color: $ufpel-text-highlight !important;
+}
+
+.bg-gradient-ufpel-accent {
+    background: linear-gradient(135deg, $ufpel-accent 0%, darken($ufpel-accent, 10%) 100%) !important;
+    color: $ufpel-text-highlight !important;
+}
+
+// =============================================================================
+// OVERLAYS E TRANSPARÊNCIAS
+// =============================================================================
+
+.overlay-ufpel-primary {
+    position: relative;
+    
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba($ufpel-primary, 0.8);
+        pointer-events: none;
+    }
+}
+
+.overlay-ufpel-secondary {
+    position: relative;
+    
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba($ufpel-secondary, 0.8);
+        pointer-events: none;
+    }
+}
+
+.overlay-ufpel-dark {
+    position: relative;
+    
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba($ufpel-text-primary, 0.7);
+        pointer-events: none;
+    }
+}
+
+// =============================================================================
+// ESTADOS HOVER COM CORES UFPel
+// =============================================================================
+
+.hover-ufpel-primary {
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+        background-color: $ufpel-primary !important;
+        color: $ufpel-text-highlight !important;
+    }
+}
+
+.hover-ufpel-secondary {
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+        background-color: $ufpel-secondary !important;
+        color: $ufpel-text-highlight !important;
+    }
+}
+
+.hover-ufpel-accent {
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+        background-color: $ufpel-accent !important;
+        color: $ufpel-text-highlight !important;
+    }
+}
+
+// =============================================================================
+// BADGES E TAGS COM CORES UFPel
+// =============================================================================
+
+.badge-ufpel-primary {
+    background-color: $ufpel-primary;
+    color: $ufpel-text-highlight;
+}
+
+.badge-ufpel-secondary {
+    background-color: $ufpel-secondary;
+    color: $ufpel-text-highlight;
+}
+
+.badge-ufpel-accent {
+    background-color: $ufpel-accent;
+    color: $ufpel-text-highlight;
+}
+
+.badge-ufpel-light {
+    background-color: lighten($ufpel-background, 5%);
+    color: $ufpel-text-secondary;
+    border: 1px solid rgba($ufpel-text-secondary, 0.2);
+}
+
+// =============================================================================
+// ALERTAS CUSTOMIZADOS UFPel
+// =============================================================================
+
+.alert-ufpel-primary {
+    background-color: lighten($ufpel-primary, 45%);
+    border-color: $ufpel-primary;
+    color: darken($ufpel-primary, 20%);
+    
+    .alert-link {
+        color: darken($ufpel-primary, 30%);
+    }
+}
+
+.alert-ufpel-secondary {
+    background-color: lighten($ufpel-secondary, 50%);
+    border-color: $ufpel-secondary;
+    color: darken($ufpel-secondary, 10%);
+    
+    .alert-link {
+        color: darken($ufpel-secondary, 20%);
+    }
+}
+
+.alert-ufpel-accent {
+    background-color: lighten($ufpel-accent, 35%);
+    border-color: $ufpel-accent;
+    color: darken($ufpel-accent, 20%);
+    
+    .alert-link {
+        color: darken($ufpel-accent, 30%);
+    }
+}
+
+// =============================================================================
+// COMPONENTES DE PROGRESSO COM CORES UFPel
+// =============================================================================
+
+.progress-bar-ufpel {
+    background-color: $ufpel-primary;
+}
+
+.progress-bar-ufpel-secondary {
+    background-color: $ufpel-secondary;
+}
+
+.progress-bar-ufpel-accent {
+    background-color: $ufpel-accent;
+}
+
+.progress-bar-striped-ufpel {
+    background-image: linear-gradient(
+        45deg,
+        rgba($ufpel-text-highlight, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba($ufpel-text-highlight, 0.15) 50%,
+        rgba($ufpel-text-highlight, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 1rem 1rem;
+}
+
+// =============================================================================
+// SOMBRAS COM CORES UFPel
+// =============================================================================
+
+.shadow-ufpel-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba($ufpel-primary, 0.15) !important;
+}
+
+.shadow-ufpel {
+    box-shadow: 0 0.5rem 1rem rgba($ufpel-primary, 0.2) !important;
+}
+
+.shadow-ufpel-lg {
+    box-shadow: 0 1rem 3rem rgba($ufpel-primary, 0.25) !important;
+}
+
+// =============================================================================
+// ELEMENTOS DE FORMULÁRIO COM CORES UFPel
+// =============================================================================
+
+.form-control-ufpel {
+    &:focus {
+        border-color: $ufpel-primary;
+        box-shadow: 0 0 0 0.2rem rgba($ufpel-primary, 0.25);
+    }
+}
+
+.form-select-ufpel {
+    &:focus {
+        border-color: $ufpel-primary;
+        box-shadow: 0 0 0 0.2rem rgba($ufpel-primary, 0.25);
+    }
+}
+
+.form-check-input-ufpel {
+    &:checked {
+        background-color: $ufpel-primary;
+        border-color: $ufpel-primary;
+    }
+    
+    &:focus {
+        border-color: $ufpel-primary;
+        box-shadow: 0 0 0 0.2rem rgba($ufpel-primary, 0.25);
+    }
+}
+
+// =============================================================================
+// TABELAS COM CORES UFPel
+// =============================================================================
+
+.table-ufpel {
+    thead {
+        background-color: $ufpel-primary;
+        color: $ufpel-text-highlight;
+    }
+    
+    tbody tr:hover {
+        background-color: rgba($ufpel-primary, 0.05);
+    }
+}
+
+.table-striped-ufpel {
+    tbody tr:nth-of-type(odd) {
+        background-color: rgba($ufpel-background, 0.5);
+    }
+}
+
+// =============================================================================
+// NAVEGAÇÃO COM CORES UFPel
+// =============================================================================
+
+.nav-pills-ufpel {
+    .nav-link {
+        color: $ufpel-primary;
+        
+        &:hover {
+            background-color: rgba($ufpel-primary, 0.1);
+        }
+        
+        &.active {
+            background-color: $ufpel-primary;
+            color: $ufpel-text-highlight;
+        }
+    }
+}
+
+.nav-tabs-ufpel {
+    border-bottom-color: $ufpel-primary;
+    
+    .nav-link {
+        color: $ufpel-text-secondary;
+        
+        &:hover {
+            border-color: rgba($ufpel-primary, 0.5);
+            color: $ufpel-primary;
+        }
+        
+        &.active {
+            color: $ufpel-primary;
+            border-color: $ufpel-primary $ufpel-primary white;
+        }
+    }
+}
+
+// =============================================================================
+// PAGINAÇÃO COM CORES UFPel
+// =============================================================================
+
+.pagination-ufpel {
+    .page-link {
+        color: $ufpel-primary;
+        
+        &:hover {
+            background-color: rgba($ufpel-primary, 0.1);
+            border-color: $ufpel-primary;
+        }
+        
+        &:focus {
+            box-shadow: 0 0 0 0.2rem rgba($ufpel-primary, 0.25);
+        }
+    }
+    
+    .page-item.active .page-link {
+        background-color: $ufpel-primary;
+        border-color: $ufpel-primary;
+        color: $ufpel-text-highlight;
+    }
+    
+    .page-item.disabled .page-link {
+        color: $ufpel-text-secondary;
+        opacity: 0.5;
+    }
+}
