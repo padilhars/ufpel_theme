@@ -1,0 +1,99 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_ufpel/navbar_brand
+
+    Template customizado para o branding da navbar do tema UFPel.
+    
+    Classes requeridas para JS:
+    * navbar-brand - Link principal do brand
+    * logo-expanded - Logo expandido
+    * logo-compact - Logo compacto
+    
+    Atributos de dados para JS:
+    * data-toggle="navbar" - Para toggle do menu mobile
+    
+    Context variables required for this template:
+    * sitename - Nome do site
+    * siteurl - URL do site
+    * logourl - URL do logo principal
+    * logocompacturl - URL do logo compacto
+    * haslogo - Boolean indicando se há logo
+    * haslogocompact - Boolean indicando se há logo compacto
+    
+    Example context (json):
+    {
+        "sitename": "UFPel - Universidade Federal de Pelotas",
+        "siteurl": "https://moodle.ufpel.edu.br",
+        "logourl": "https://moodle.ufpel.edu.br/theme/ufpel/pix/logo-expanded.svg",
+        "logocompacturl": "https://moodle.ufpel.edu.br/theme/ufpel/pix/logo-compact.svg",
+        "haslogo": true,
+        "haslogocompact": true
+    }
+}}
+
+<a class="navbar-brand d-flex align-items-center" href="{{{siteurl}}}" aria-label="{{#str}}home{{/str}}">
+    {{#haslogo}}
+        {{! Logo expandido - visível em telas grandes }}
+        <img src="{{{logourl}}}" 
+             class="logo-expanded d-none d-md-block" 
+             alt="{{sitename}}"
+             height="40"
+             loading="lazy">
+        
+        {{#haslogocompact}}
+            {{! Logo compacto - visível em telas pequenas }}
+            <img src="{{{logocompacturl}}}" 
+                 class="logo-compact d-block d-md-none" 
+                 alt="{{sitename}}"
+                 height="35"
+                 loading="lazy">
+        {{/haslogocompact}}
+        
+        {{^haslogocompact}}
+            {{! Se não houver logo compacto, usa o expandido em todas as telas }}
+            <img src="{{{logourl}}}" 
+                 class="logo-compact d-block d-md-none" 
+                 alt="{{sitename}}"
+                 height="35"
+                 loading="lazy">
+        {{/haslogocompact}}
+    {{/haslogo}}
+    
+    {{^haslogo}}
+        {{! Se não houver logos, exibe o nome do site }}
+        <span class="site-name h4 mb-0 font-weight-bold">
+            {{#haslogocompact}}
+                <img src="{{{logocompacturl}}}" 
+                     class="logo-compact d-inline-block d-md-none mr-2" 
+                     alt=""
+                     height="30"
+                     loading="lazy">
+            {{/haslogocompact}}
+            <span class="d-none d-md-inline">{{sitename}}</span>
+            <span class="d-inline d-md-none">UFPel</span>
+        </span>
+    {{/haslogo}}
+    
+    {{! Badge indicador de ambiente (desenvolvimento/teste) - opcional }}
+    {{#isdevelopment}}
+        <span class="badge badge-warning ml-2 small">DEV</span>
+    {{/isdevelopment}}
+    {{#istest}}
+        <span class="badge badge-info ml-2 small">TEST</span>
+    {{/istest}}
+</a>
