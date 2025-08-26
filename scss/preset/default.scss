@@ -1,0 +1,335 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Preset padrão do tema UFPel
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @author     Seu Nome
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// =============================================================================
+// IMPORTAÇÕES BASE DO BOOST
+// =============================================================================
+// Importa as configurações base do tema Boost (já carregado via lib.php)
+// O Boost já importa Bootstrap 5 e todas as dependências necessárias
+
+// =============================================================================
+// MÓDULOS UFPel - ORDEM IMPORTA!
+// =============================================================================
+
+// 1. Variáveis e tokens de design (deve vir primeiro)
+@import "ufpel/variables";
+
+// 2. Sistema de cores UFPel
+@import "ufpel/colors";
+
+// 3. Configurações de tipografia
+@import "ufpel/typography";
+
+// 4. Componentes customizados (vazio por enquanto - será usado nas próximas fases)
+// @import "ufpel/components";
+
+// 5. Classes utilitárias (vazio por enquanto - será usado nas próximas fases)
+// @import "ufpel/utilities";
+
+// 6. Estilos de acessibilidade (vazio por enquanto - será usado nas próximas fases)
+// @import "ufpel/accessibility";
+
+// =============================================================================
+// OVERRIDE DE VARIÁVEIS BOOTSTRAP/BOOST
+// =============================================================================
+
+// Cores primárias do Bootstrap usando cores UFPel
+$primary: $ufpel-primary !default;
+$secondary: $ufpel-secondary !default;
+$info: $ufpel-accent !default;
+$success: #28a745 !default;
+$warning: $ufpel-accent !default;
+$danger: #dc3545 !default;
+
+// Sistema de grays customizado
+$gray-100: lighten($ufpel-text-secondary, 50%) !default;
+$gray-200: lighten($ufpel-text-secondary, 40%) !default;
+$gray-300: lighten($ufpel-text-secondary, 30%) !default;
+$gray-400: lighten($ufpel-text-secondary, 20%) !default;
+$gray-500: lighten($ufpel-text-secondary, 10%) !default;
+$gray-600: $ufpel-text-secondary !default;
+$gray-700: darken($ufpel-text-secondary, 10%) !default;
+$gray-800: darken($ufpel-text-secondary, 20%) !default;
+$gray-900: $ufpel-text-primary !default;
+
+// Configurações de body
+$body-bg: $ufpel-background !default;
+$body-color: $ufpel-text-primary !default;
+
+// Configurações de links
+$link-color: $ufpel-primary !default;
+$link-hover-color: darken($ufpel-primary, 15%) !default;
+$link-decoration: none !default;
+$link-hover-decoration: underline !default;
+
+// Configurações de bordas
+$border-radius: 0.375rem !default;
+$border-radius-lg: 0.5rem !default;
+$border-radius-sm: 0.25rem !default;
+
+// Configurações de sombras
+$box-shadow-sm: 0 0.125rem 0.25rem rgba($ufpel-text-primary, 0.075) !default;
+$box-shadow: 0 0.5rem 1rem rgba($ufpel-text-primary, 0.15) !default;
+$box-shadow-lg: 0 1rem 3rem rgba($ufpel-text-primary, 0.175) !default;
+
+// =============================================================================
+// ESTILOS BASE UFPel
+// =============================================================================
+
+// Aplicar estilos base ao HTML e body
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: $ufpel-font-family-base;
+    font-weight: $ufpel-font-weight-normal;
+    line-height: $ufpel-line-height-base;
+    color: $ufpel-text-primary;
+    background-color: $ufpel-background;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// Headings com a fonte Antonio
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: $ufpel-font-family-headings;
+    font-weight: $ufpel-font-weight-bold;
+    line-height: $ufpel-line-height-heading;
+    color: $ufpel-text-primary;
+    margin-bottom: 0.75rem;
+}
+
+// Tamanhos específicos de headings
+h1, .h1 { font-size: 2.5rem; }
+h2, .h2 { font-size: 2rem; }
+h3, .h3 { font-size: 1.75rem; }
+h4, .h4 { font-size: 1.5rem; }
+h5, .h5 { font-size: 1.25rem; }
+h6, .h6 { font-size: 1rem; }
+
+// Parágrafos
+p {
+    margin-bottom: 1rem;
+}
+
+// Links
+a {
+    color: $ufpel-primary;
+    transition: color 0.15s ease-in-out;
+    
+    &:hover,
+    &:focus {
+        color: darken($ufpel-primary, 10%);
+        text-decoration: underline;
+    }
+    
+    &:focus {
+        outline: 2px solid $ufpel-accent;
+        outline-offset: 2px;
+    }
+}
+
+// Botões primários com cores UFPel
+.btn-primary {
+    background-color: $ufpel-primary;
+    border-color: $ufpel-primary;
+    color: $ufpel-text-highlight;
+    font-weight: $ufpel-font-weight-medium;
+    
+    &:hover,
+    &:focus {
+        background-color: darken($ufpel-primary, 10%);
+        border-color: darken($ufpel-primary, 10%);
+        color: $ufpel-text-highlight;
+    }
+    
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba($ufpel-primary, 0.25);
+    }
+}
+
+// Botões secundários
+.btn-secondary {
+    background-color: $ufpel-secondary;
+    border-color: $ufpel-secondary;
+    color: $ufpel-text-highlight;
+    
+    &:hover,
+    &:focus {
+        background-color: darken($ufpel-secondary, 10%);
+        border-color: darken($ufpel-secondary, 10%);
+        color: $ufpel-text-highlight;
+    }
+    
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba($ufpel-secondary, 0.25);
+    }
+}
+
+// Cards
+.card {
+    border: 1px solid rgba($ufpel-text-secondary, 0.125);
+    box-shadow: $box-shadow-sm;
+    
+    .card-header {
+        background-color: lighten($ufpel-background, 5%);
+        border-bottom-color: rgba($ufpel-text-secondary, 0.125);
+        font-family: $ufpel-font-family-headings;
+        font-weight: $ufpel-font-weight-medium;
+    }
+}
+
+// Navbar personalizada
+.navbar {
+    background-color: $ufpel-primary !important;
+    box-shadow: $box-shadow;
+    
+    .navbar-brand {
+        color: $ufpel-text-highlight !important;
+        font-family: $ufpel-font-family-headings;
+        font-weight: $ufpel-font-weight-bold;
+        font-size: 1.5rem;
+    }
+    
+    .navbar-nav .nav-link {
+        color: rgba($ufpel-text-highlight, 0.9) !important;
+        font-weight: $ufpel-font-weight-medium;
+        
+        &:hover,
+        &:focus {
+            color: $ufpel-text-highlight !important;
+        }
+        
+        &.active {
+            color: $ufpel-text-highlight !important;
+            font-weight: $ufpel-font-weight-bold;
+        }
+    }
+}
+
+// Footer
+.footer {
+    background-color: $ufpel-secondary;
+    color: $ufpel-text-highlight;
+    
+    a {
+        color: rgba($ufpel-text-highlight, 0.8);
+        
+        &:hover {
+            color: $ufpel-text-highlight;
+        }
+    }
+}
+
+// Breadcrumb
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    
+    .breadcrumb-item {
+        &.active {
+            color: $ufpel-text-secondary;
+        }
+        
+        a {
+            color: $ufpel-primary;
+            text-decoration: none;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+// Alertas com cores UFPel
+.alert-info {
+    background-color: lighten($ufpel-primary, 45%);
+    border-color: $ufpel-primary;
+    color: darken($ufpel-primary, 20%);
+}
+
+.alert-warning {
+    background-color: lighten($ufpel-accent, 35%);
+    border-color: $ufpel-accent;
+    color: darken($ufpel-accent, 20%);
+}
+
+// Tabelas
+.table {
+    thead th {
+        font-family: $ufpel-font-family-headings;
+        font-weight: $ufpel-font-weight-medium;
+        color: $ufpel-text-primary;
+        border-bottom: 2px solid $ufpel-primary;
+    }
+    
+    tbody tr {
+        &:hover {
+            background-color: rgba($ufpel-primary, 0.05);
+        }
+    }
+}
+
+// Forms
+.form-control,
+.form-select {
+    border-color: rgba($ufpel-text-secondary, 0.3);
+    
+    &:focus {
+        border-color: $ufpel-primary;
+        box-shadow: 0 0 0 0.2rem rgba($ufpel-primary, 0.25);
+    }
+}
+
+.form-label {
+    font-weight: $ufpel-font-weight-medium;
+    color: $ufpel-text-primary;
+}
+
+// Paginação
+.pagination {
+    .page-link {
+        color: $ufpel-primary;
+        border-color: rgba($ufpel-text-secondary, 0.2);
+        
+        &:hover {
+            background-color: lighten($ufpel-primary, 45%);
+            border-color: $ufpel-primary;
+        }
+        
+        &:focus {
+            box-shadow: 0 0 0 0.2rem rgba($ufpel-primary, 0.25);
+        }
+    }
+    
+    .page-item.active .page-link {
+        background-color: $ufpel-primary;
+        border-color: $ufpel-primary;
+        color: $ufpel-text-highlight;
+    }
+}
