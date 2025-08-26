@@ -1,0 +1,261 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_ufpel/footer
+
+    Template do rodapé institucional do tema UFPel.
+    
+    Classes requeridas para JS:
+    * footer-section - Seção do footer
+    * footer-links - Links do footer
+    * social-links - Links de redes sociais
+    
+    Context variables required for this template:
+    * sitename - Nome do site
+    * loginurl - URL da página de login
+    * homeurl - URL da página inicial
+    * year - Ano atual
+    * hasfooterlogo - Boolean indicando se há logo no footer
+    * footerlogourl - URL do logo do footer
+    * showlogininfo - Boolean para exibir info de login
+    * isloggedin - Boolean indicando se usuário está logado
+    * userfullname - Nome completo do usuário
+    * logouturl - URL para logout
+    
+    Example context (json):
+    {
+        "sitename": "UFPel - Universidade Federal de Pelotas",
+        "year": "2025",
+        "homeurl": "https://moodle.ufpel.edu.br",
+        "loginurl": "https://moodle.ufpel.edu.br/login",
+        "hasfooterlogo": true,
+        "footerlogourl": "https://moodle.ufpel.edu.br/theme/ufpel/pix/logo-mono.svg",
+        "showlogininfo": true,
+        "isloggedin": true,
+        "userfullname": "João Silva",
+        "logouturl": "https://moodle.ufpel.edu.br/logout"
+    }
+}}
+
+<footer id="page-footer" class="footer-container bg-ufpel-secondary text-white mt-5">
+    <div class="container py-5">
+        <div class="row">
+            {{! Coluna 1: Logo e informações institucionais }}
+            <div class="col-lg-4 col-md-6 mb-4 footer-section">
+                {{#hasfooterlogo}}
+                    <img src="{{{footerlogourl}}}" 
+                         alt="{{sitename}}" 
+                         class="mb-3" 
+                         height="60"
+                         loading="lazy">
+                {{/hasfooterlogo}}
+                {{^hasfooterlogo}}
+                    <h4 class="mb-3">{{#str}}footertext, theme_ufpel{{/str}}</h4>
+                {{/hasfooterlogo}}
+                
+                <p class="small mb-2">
+                    Rua Gomes Carneiro, 01 - Centro<br>
+                    CEP: 96010-610 - Pelotas/RS<br>
+                    Telefone: (53) 3284-4000
+                </p>
+                
+                <p class="small text-white-50">
+                    {{#str}}copyright, theme_ufpel, {{year}}{{/str}}
+                </p>
+            </div>
+            
+            {{! Coluna 2: Links rápidos }}
+            <div class="col-lg-2 col-md-6 mb-4 footer-section">
+                <h5 class="mb-3">{{#str}}quicklinks{{/str}}</h5>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2">
+                        <a href="{{{homeurl}}}" class="text-white-50">
+                            <i class="fa fa-home mr-1"></i> {{#str}}home{{/str}}
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{{{homeurl}}}/course" class="text-white-50">
+                            <i class="fa fa-graduation-cap mr-1"></i> {{#str}}courses{{/str}}
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{{{homeurl}}}/calendar" class="text-white-50">
+                            <i class="fa fa-calendar mr-1"></i> {{#str}}calendar{{/str}}
+                        </a>
+                    </li>
+                    {{#isloggedin}}
+                        <li class="mb-2">
+                            <a href="{{{homeurl}}}/my" class="text-white-50">
+                                <i class="fa fa-dashboard mr-1"></i> {{#str}}myhome{{/str}}
+                            </a>
+                        </li>
+                    {{/isloggedin}}
+                </ul>
+            </div>
+            
+            {{! Coluna 3: Suporte e ajuda }}
+            <div class="col-lg-3 col-md-6 mb-4 footer-section">
+                <h5 class="mb-3">{{#str}}support{{/str}}</h5>
+                <ul class="list-unstyled footer-links">
+                    <li class="mb-2">
+                        <a href="https://portal.ufpel.edu.br" target="_blank" class="text-white-50">
+                            <i class="fa fa-university mr-1"></i> Portal UFPel
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="https://cobalto.ufpel.edu.br" target="_blank" class="text-white-50">
+                            <i class="fa fa-desktop mr-1"></i> Cobalto
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{{{homeurl}}}/help" class="text-white-50">
+                            <i class="fa fa-question-circle mr-1"></i> {{#str}}help{{/str}}
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="mailto:suporte.moodle@ufpel.edu.br" class="text-white-50">
+                            <i class="fa fa-envelope mr-1"></i> {{#str}}contactus{{/str}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            {{! Coluna 4: Redes sociais e acessibilidade }}
+            <div class="col-lg-3 col-md-6 mb-4 footer-section">
+                <h5 class="mb-3">{{#str}}followus{{/str}}</h5>
+                
+                {{! Links de redes sociais }}
+                <div class="social-links mb-3">
+                    <a href="https://facebook.com/ufpel" 
+                       target="_blank" 
+                       class="btn btn-sm btn-outline-light mr-1"
+                       aria-label="Facebook UFPel">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://instagram.com/ufpel" 
+                       target="_blank" 
+                       class="btn btn-sm btn-outline-light mr-1"
+                       aria-label="Instagram UFPel">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://youtube.com/ufpel" 
+                       target="_blank" 
+                       class="btn btn-sm btn-outline-light mr-1"
+                       aria-label="YouTube UFPel">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://twitter.com/ufpel" 
+                       target="_blank" 
+                       class="btn btn-sm btn-outline-light"
+                       aria-label="Twitter UFPel">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+                
+                {{! Acessibilidade }}
+                <h6 class="mt-3 mb-2">{{#str}}accessibility, theme_ufpel{{/str}}</h6>
+                <div class="accessibility-tools">
+                    <button class="btn btn-sm btn-outline-light mr-1" 
+                            id="toggle-high-contrast"
+                            title="{{#str}}togglehighcontrast, theme_ufpel{{/str}}">
+                        <i class="fa fa-adjust"></i>
+                    </button>
+                    <div class="btn-group" role="group" aria-label="{{#str}}fontsize{{/str}}">
+                        <button class="btn btn-sm btn-outline-light" 
+                                id="decrease-font"
+                                title="{{#str}}decreasefont{{/str}}">
+                            A-
+                        </button>
+                        <button class="btn btn-sm btn-outline-light" 
+                                id="reset-font"
+                                title="{{#str}}resetfont{{/str}}">
+                            A
+                        </button>
+                        <button class="btn btn-sm btn-outline-light" 
+                                id="increase-font"
+                                title="{{#str}}increasefont{{/str}}">
+                            A+
+                        </button>
+                    </div>
+                </div>
+                
+                {{! Widget VLibras }}
+                <div class="mt-2">
+                    <a href="#" class="text-white-50 small">
+                        <i class="fa fa-sign-language mr-1"></i> 
+                        {{#str}}vlibras, theme_ufpel{{/str}}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        {{! Barra inferior com informações de login }}
+        {{#showlogininfo}}
+            <div class="row mt-4 pt-4 border-top border-secondary">
+                <div class="col-md-6">
+                    {{#isloggedin}}
+                        <p class="small mb-0 text-white-50">
+                            {{#str}}loggedinas{{/str}} <strong>{{userfullname}}</strong>
+                        </p>
+                    {{/isloggedin}}
+                    {{^isloggedin}}
+                        <p class="small mb-0 text-white-50">
+                            {{#str}}notloggedin{{/str}}
+                        </p>
+                    {{/isloggedin}}
+                </div>
+                <div class="col-md-6 text-md-right">
+                    {{#isloggedin}}
+                        <a href="{{{logouturl}}}" class="btn btn-sm btn-outline-light">
+                            <i class="fa fa-sign-out-alt mr-1"></i> {{#str}}logout{{/str}}
+                        </a>
+                    {{/isloggedin}}
+                    {{^isloggedin}}
+                        <a href="{{{loginurl}}}" class="btn btn-sm btn-outline-light">
+                            <i class="fa fa-sign-in-alt mr-1"></i> {{#str}}login{{/str}}
+                        </a>
+                    {{/isloggedin}}
+                </div>
+            </div>
+        {{/showlogininfo}}
+        
+        {{! Links de políticas e termos }}
+        <div class="row mt-3 pt-3 border-top border-secondary">
+            <div class="col text-center">
+                <nav class="small">
+                    <a href="{{{homeurl}}}/privacy" class="text-white-50 mx-2">
+                        {{#str}}privacypolicy{{/str}}
+                    </a>
+                    <span class="text-white-50">|</span>
+                    <a href="{{{homeurl}}}/terms" class="text-white-50 mx-2">
+                        {{#str}}termsofuse{{/str}}
+                    </a>
+                    <span class="text-white-50">|</span>
+                    <a href="{{{homeurl}}}/cookies" class="text-white-50 mx-2">
+                        {{#str}}cookiepolicy{{/str}}
+                    </a>
+                </nav>
+                
+                {{! Versão do Moodle }}
+                <p class="text-white-50 mt-2 mb-0 small">
+                    Powered by <a href="https://moodle.org" target="_blank" class="text-white-50">Moodle</a>
+                    {{#release}} | {{release}}{{/release}}
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
