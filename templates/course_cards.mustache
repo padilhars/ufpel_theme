@@ -1,0 +1,392 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_ufpel/course_cards
+
+    Template para cards de curso customizados do tema UFPel.
+    Usado em listagens de cursos e no dashboard.
+    
+    Classes requeridas para JS:
+    * course-card - Container do card
+    * course-card-body - Corpo do card
+    * course-card-progress - Barra de progresso
+    * course-card-actions - Ações do card
+    
+    Context variables required for this template:
+    * courses - Array de cursos
+    * nocourses - Boolean indicando se não há cursos
+    
+    Estrutura de cada curso:
+    * id - ID do curso
+    * fullname - Nome completo
+    * shortname - Nome curto
+    * category - Categoria
+    * categoryid - ID da categoria
+    * visible - Visibilidade do curso
+    * imageurl - URL da imagem
+    * hasimage - Boolean para imagem
+    * summary - Resumo do curso
+    * progress - Progresso (0-100)
+    * hasprogress - Boolean para progresso
+    * enrollmenticons - Ícones de inscrição
+    * teachers - Lista de professores
+    * startdate - Data de início
+    * enddate - Data de fim
+    * enrolled - Se está inscrito
+    * completed - Se está completo
+    * favourite - Se é favorito
+    * hidden - Se está oculto
+    * viewurl - URL para visualizar
+    
+    Example context (json):
+    {
+        "courses": [
+            {
+                "id": 2,
+                "fullname": "Introdução à Programação",
+                "shortname": "PROG101",
+                "category": "Computação",
+                "categoryid": 3,
+                "visible": true,
+                "imageurl": "course.jpg",
+                "hasimage": true,
+                "summary": "Aprenda os fundamentos...",
+                "progress": 75,
+                "hasprogress": true,
+                "teachers": ["Prof. Silva"],
+                "startdate": "01/03/2025",
+                "enrolled": true,
+                "completed": false,
+                "favourite": true,
+                "viewurl": "course/view.php?id=2"
+            }
+        ],
+        "nocourses": false
+    }
+}}
+
+{{#nocourses}}
+    <div class="alert alert-info">
+        <i class="fa fa-info-circle mr-2"></i>
+        {{#str}}nocourses{{/str}}
+    </div>
+{{/nocourses}}
+
+{{#courses}}
+<div class="row course-cards-container">
+    {{#courses}}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="course-card card h-100 {{#hidden}}course-hidden{{/hidden}}" 
+                 data-courseid="{{id}}"
+                 data-favourite="{{favourite}}">
+                
+                {{! Imagem do curso }}
+                <div class="course-card-image position-relative">
+                    {{#hasimage}}
+                        <img src="{{{imageurl}}}" 
+                             class="card-img-top" 
+                             alt="{{fullname}}"
+                             loading="lazy">
+                    {{/hasimage}}
+                    {{^hasimage}}
+                        <div class="course-card-placeholder bg-gradient-ufpel d-flex align-items-center justify-content-center">
+                            <i class="fa fa-graduation-cap fa-3x text-white-50"></i>
+                        </div>
+                    {{/hasimage}}
+                    
+                    {{! Badges sobrepostos }}
+                    <div class="course-card-badges position-absolute top-0 right-0 p-2">
+                        {{#favourite}}
+                            <span class="badge badge-warning" title="{{#str}}favourite{{/str}}">
+                                <i class="fa fa-star"></i>
+                            </span>
+                        {{/favourite}}
+                        {{#completed}}
+                            <span class="badge badge-success" title="{{#str}}completed{{/str}}">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        {{/completed}}
+                        {{#hidden}}
+                            <span class="badge badge-secondary" title="{{#str}}hidden{{/str}}">
+                                <i class="fa fa-eye-slash"></i>
+                            </span>
+                        {{/hidden}}
+                    </div>
+                    
+                    {{! Categoria }}
+                    <div class="course-card-category position-absolute bottom-0 left-0 p-2">
+                        <a href="{{categoryurl}}" class="badge badge-dark">
+                            {{category}}
+                        </a>
+                    </div>
+                </div>
+                
+                {{! Corpo do card }}
+                <div class="course-card-body card-body d-flex flex-column">
+                    {{! Título do curso }}
+                    <h5 class="course-card-title card-title mb-2">
+                        <a href="{{{viewurl}}}" class="text-decoration-none text-ufpel-primary">
+                            {{fullname}}
+                        </a>
+                    </h5>
+                    
+                    {{! Nome curto }}
+                    <p class="course-shortname small text-muted mb-2">
+                        <i class="fa fa-tag mr-1"></i> {{shortname}}
+                    </p>
+                    
+                    {{! Resumo }}
+                    {{#summary}}
+                        <p class="course-summary card-text text-muted small mb-3 flex-grow-1">
+                            {{summary}}
+                        </p>
+                    {{/summary}}
+                    
+                    {{! Professores }}
+                    {{#teachers}}
+                        <div class="course-teachers mb-2">
+                            <small class="text-muted">
+                                <i class="fa fa-chalkboard-teacher mr-1"></i>
+                                {{#teachers}}
+                                    {{.}}{{^last}}, {{/last}}
+                                {{/teachers}}
+                            </small>
+                        </div>
+                    {{/teachers}}
+                    
+                    {{! Datas }}
+                    <div class="course-dates small text-muted mb-3">
+                        {{#startdate}}
+                            <div>
+                                <i class="fa fa-calendar-alt mr-1"></i>
+                                {{#str}}startdate{{/str}}: {{startdate}}
+                            </div>
+                        {{/startdate}}
+                        {{#enddate}}
+                            <div>
+                                <i class="fa fa-calendar-check mr-1"></i>
+                                {{#str}}enddate{{/str}}: {{enddate}}
+                            </div>
+                        {{/enddate}}
+                    </div>
+                    
+                    {{! Barra de progresso }}
+                    {{#hasprogress}}
+                        <div class="course-card-progress mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <small class="text-muted">{{#str}}progress{{/str}}</small>
+                                <small class="font-weight-bold text-ufpel-primary">{{progress}}%</small>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-ufpel-primary" 
+                                     role="progressbar" 
+                                     style="width: {{progress}}%"
+                                     aria-valuenow="{{progress}}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                    {{/hasprogress}}
+                    
+                    {{! Ações do card }}
+                    <div class="course-card-actions mt-auto">
+                        {{#enrolled}}
+                            <a href="{{{viewurl}}}" class="btn btn-primary btn-sm btn-block">
+                                <i class="fa fa-sign-in-alt mr-1"></i> 
+                                {{#str}}entercourse{{/str}}
+                            </a>
+                        {{/enrolled}}
+                        {{^enrolled}}
+                            <a href="{{{viewurl}}}" class="btn btn-outline-primary btn-sm btn-block">
+                                <i class="fa fa-info-circle mr-1"></i> 
+                                {{#str}}moreinfo{{/str}}
+                            </a>
+                        {{/enrolled}}
+                        
+                        {{! Botões adicionais }}
+                        <div class="btn-group btn-group-sm mt-2 w-100" role="group">
+                            <button type="button" 
+                                    class="btn btn-outline-secondary course-favourite-btn"
+                                    data-courseid="{{id}}"
+                                    title="{{#str}}favourite{{/str}}">
+                                <i class="fa{{#favourite}}s{{/favourite}}{{^favourite}}r{{/favourite}} fa-star"></i>
+                            </button>
+                            {{#enrolled}}
+                                <a href="{{{viewurl}}}/grades" 
+                                   class="btn btn-outline-secondary"
+                                   title="{{#str}}grades{{/str}}">
+                                    <i class="fa fa-chart-line"></i>
+                                </a>
+                                <a href="{{{viewurl}}}/user/index.php" 
+                                   class="btn btn-outline-secondary"
+                                   title="{{#str}}participants{{/str}}">
+                                    <i class="fa fa-users"></i>
+                                </a>
+                            {{/enrolled}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/courses}}
+</div>
+{{/courses}}
+
+{{! Estilos CSS específicos para os cards }}
+<style>
+.course-card {
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 128, 255, 0.15);
+    border-color: #0080FF;
+}
+
+.course-card.course-hidden {
+    opacity: 0.7;
+}
+
+.course-card-image {
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+    background: #f8f9fa;
+}
+
+.course-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.course-card:hover .course-card-image img {
+    transform: scale(1.05);
+}
+
+.course-card-placeholder {
+    height: 100%;
+    width: 100%;
+}
+
+.course-card-badges {
+    top: 10px;
+    right: 10px;
+}
+
+.course-card-badges .badge {
+    margin-left: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.course-card-category {
+    bottom: 10px;
+    left: 10px;
+}
+
+.course-card-title {
+    font-family: "Antonio", sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.3;
+}
+
+.course-card-title a {
+    color: #0080FF;
+    transition: color 0.3s ease;
+}
+
+.course-card-title a:hover {
+    color: #00408F;
+}
+
+.course-summary {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    min-height: 3.6em;
+}
+
+.course-favourite-btn {
+    transition: all 0.3s ease;
+}
+
+.course-favourite-btn:hover {
+    background-color: #F7A600;
+    border-color: #F7A600;
+    color: white;
+}
+
+.course-favourite-btn i.fas {
+    color: #F7A600;
+}
+
+.course-card-progress .progress {
+    background-color: #e9ecef;
+}
+
+.course-card-actions .btn {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .course-cards-container .col-md-6 {
+        margin-bottom: 1.5rem;
+    }
+    
+    .course-card-image {
+        height: 150px;
+    }
+}
+
+/* Animação de loading */
+.course-card.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.course-card.loading::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+</style>
