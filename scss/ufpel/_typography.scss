@@ -1,0 +1,455 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Configurações de tipografia do tema UFPel
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @author     Seu Nome
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// =============================================================================
+// IMPORTAÇÃO DAS FONTES DO GOOGLE
+// =============================================================================
+// As fontes são importadas via lib.php no pre_scss:
+// - DM Sans: para conteúdo geral
+// - Antonio: para títulos e destaques
+
+// =============================================================================
+// CONFIGURAÇÃO BASE DA TIPOGRAFIA
+// =============================================================================
+
+// Aplicação das fontes ao HTML base
+html {
+    font-size: 16px; // Base para cálculos rem
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    font-family: $ufpel-font-family-base;
+    font-size: $ufpel-font-size-base;
+    font-weight: $ufpel-font-weight-normal;
+    line-height: $ufpel-line-height-base;
+    letter-spacing: -0.01em;
+}
+
+// =============================================================================
+// HIERARQUIA DE TÍTULOS
+// =============================================================================
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+    font-family: $ufpel-font-family-headings;
+    font-weight: $ufpel-font-weight-bold;
+    line-height: $ufpel-line-height-heading;
+    letter-spacing: -0.02em;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+// Tamanhos responsivos para títulos
+h1, .h1 {
+    font-size: 2.5rem; // 40px
+    
+    @media (max-width: 768px) {
+        font-size: 2rem; // 32px
+    }
+}
+
+h2, .h2 {
+    font-size: 2rem; // 32px
+    
+    @media (max-width: 768px) {
+        font-size: 1.75rem; // 28px
+    }
+}
+
+h3, .h3 {
+    font-size: 1.75rem; // 28px
+    
+    @media (max-width: 768px) {
+        font-size: 1.5rem; // 24px
+    }
+}
+
+h4, .h4 {
+    font-size: 1.5rem; // 24px
+    
+    @media (max-width: 768px) {
+        font-size: 1.25rem; // 20px
+    }
+}
+
+h5, .h5 {
+    font-size: 1.25rem; // 20px
+}
+
+h6, .h6 {
+    font-size: 1rem; // 16px
+    font-weight: $ufpel-font-weight-medium;
+}
+
+// =============================================================================
+// CLASSES UTILITÁRIAS DE TIPOGRAFIA
+// =============================================================================
+
+// Display headings (para títulos ainda maiores)
+.display-1 {
+    font-size: 5rem;
+    font-weight: $ufpel-font-weight-bold;
+    font-family: $ufpel-font-family-headings;
+    line-height: 1.1;
+    
+    @media (max-width: 768px) {
+        font-size: 3.5rem;
+    }
+}
+
+.display-2 {
+    font-size: 4.5rem;
+    font-weight: $ufpel-font-weight-bold;
+    font-family: $ufpel-font-family-headings;
+    line-height: 1.1;
+    
+    @media (max-width: 768px) {
+        font-size: 3rem;
+    }
+}
+
+.display-3 {
+    font-size: 4rem;
+    font-weight: $ufpel-font-weight-bold;
+    font-family: $ufpel-font-family-headings;
+    line-height: 1.1;
+    
+    @media (max-width: 768px) {
+        font-size: 2.5rem;
+    }
+}
+
+.display-4 {
+    font-size: 3.5rem;
+    font-weight: $ufpel-font-weight-bold;
+    font-family: $ufpel-font-family-headings;
+    line-height: 1.1;
+    
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
+}
+
+// Lead paragraph
+.lead {
+    font-size: $ufpel-font-size-lg;
+    font-weight: $ufpel-font-weight-normal;
+    line-height: 1.6;
+}
+
+// =============================================================================
+// ELEMENTOS DE TEXTO
+// =============================================================================
+
+// Parágrafos
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    
+    &.text-large {
+        font-size: $ufpel-font-size-lg;
+    }
+    
+    &.text-small {
+        font-size: $ufpel-font-size-sm;
+    }
+}
+
+// Texto pequeno
+small,
+.small {
+    font-size: $ufpel-font-size-sm;
+    font-weight: $ufpel-font-weight-normal;
+}
+
+// Texto marcado/destacado
+mark,
+.mark {
+    padding: 0.2em 0.4em;
+    background-color: lighten($ufpel-accent, 35%);
+    color: $ufpel-text-primary;
+}
+
+// Texto deletado
+del {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+// Texto sublinhado
+u,
+.underline {
+    text-decoration: underline;
+    text-decoration-color: $ufpel-primary;
+    text-underline-offset: 0.2em;
+}
+
+// =============================================================================
+// LISTAS
+// =============================================================================
+
+ul, ol {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    
+    li {
+        margin-bottom: 0.25rem;
+    }
+    
+    ul, ol {
+        margin-bottom: 0;
+        margin-top: 0.25rem;
+    }
+}
+
+// Lista sem marcadores
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+// Lista inline
+.list-inline {
+    padding-left: 0;
+    list-style: none;
+    
+    .list-inline-item {
+        display: inline-block;
+        
+        &:not(:last-child) {
+            margin-right: 0.5rem;
+        }
+    }
+}
+
+// =============================================================================
+// BLOCKQUOTES
+// =============================================================================
+
+blockquote,
+.blockquote {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid $ufpel-primary;
+    background-color: rgba($ufpel-background, 0.5);
+    font-size: $ufpel-font-size-lg;
+    
+    p:last-child {
+        margin-bottom: 0;
+    }
+    
+    .blockquote-footer {
+        margin-top: 0.5rem;
+        font-size: $ufpel-font-size-sm;
+        color: $ufpel-text-secondary;
+        
+        &::before {
+            content: "— ";
+        }
+    }
+}
+
+// =============================================================================
+// CÓDIGO E PRÉ-FORMATADO
+// =============================================================================
+
+code {
+    font-family: $ufpel-font-family-monospace;
+    font-size: 0.875em;
+    color: #e83e8c;
+    background-color: rgba($ufpel-background, 0.5);
+    padding: 0.2em 0.4em;
+    border-radius: $ufpel-border-radius-sm;
+}
+
+pre {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-family: $ufpel-font-family-monospace;
+    font-size: $ufpel-font-size-sm;
+    color: $ufpel-text-primary;
+    background-color: lighten($ufpel-background, 3%);
+    padding: 1rem;
+    border-radius: $ufpel-border-radius-base;
+    border: 1px solid $ufpel-border-color;
+    overflow-x: auto;
+    
+    code {
+        font-size: inherit;
+        color: inherit;
+        background-color: transparent;
+        padding: 0;
+        border-radius: 0;
+    }
+}
+
+kbd {
+    font-family: $ufpel-font-family-monospace;
+    font-size: 0.875em;
+    color: $ufpel-text-highlight;
+    background-color: $ufpel-text-primary;
+    padding: 0.2em 0.4em;
+    border-radius: $ufpel-border-radius-sm;
+}
+
+// =============================================================================
+// CLASSES DE PESO DE FONTE
+// =============================================================================
+
+.fw-light {
+    font-weight: $ufpel-font-weight-light !important;
+}
+
+.fw-normal {
+    font-weight: $ufpel-font-weight-normal !important;
+}
+
+.fw-medium {
+    font-weight: $ufpel-font-weight-medium !important;
+}
+
+.fw-bold {
+    font-weight: $ufpel-font-weight-bold !important;
+}
+
+// =============================================================================
+// CLASSES DE ALINHAMENTO DE TEXTO
+// =============================================================================
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-justify {
+    text-align: justify !important;
+}
+
+// =============================================================================
+// CLASSES DE TRANSFORMAÇÃO DE TEXTO
+// =============================================================================
+
+.text-lowercase {
+    text-transform: lowercase !important;
+}
+
+.text-uppercase {
+    text-transform: uppercase !important;
+}
+
+.text-capitalize {
+    text-transform: capitalize !important;
+}
+
+// =============================================================================
+// CLASSES DE DECORAÇÃO DE TEXTO
+// =============================================================================
+
+.text-decoration-none {
+    text-decoration: none !important;
+}
+
+.text-decoration-underline {
+    text-decoration: underline !important;
+}
+
+.text-decoration-line-through {
+    text-decoration: line-through !important;
+}
+
+// =============================================================================
+// TRUNCAMENTO DE TEXTO
+// =============================================================================
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// =============================================================================
+// ESPAÇAMENTO DE LINHA
+// =============================================================================
+
+.lh-1 {
+    line-height: 1 !important;
+}
+
+.lh-sm {
+    line-height: $ufpel-line-height-sm !important;
+}
+
+.lh-base {
+    line-height: $ufpel-line-height-base !important;
+}
+
+.lh-lg {
+    line-height: 1.75 !important;
+}
+
+// =============================================================================
+// FONTES ESPECIAIS PARA CONTEXTOS MOODLE
+// =============================================================================
+
+// Títulos de curso
+.course-title {
+    font-family: $ufpel-font-family-headings;
+    font-weight: $ufpel-font-weight-bold;
+    font-size: 1.75rem;
+    color: $ufpel-primary;
+}
+
+// Nome do professor
+.teacher-name {
+    font-family: $ufpel-font-family-base;
+    font-weight: $ufpel-font-weight-medium;
+    font-size: 1rem;
+    color: $ufpel-text-secondary;
+}
+
+// Badges e etiquetas
+.badge,
+.label {
+    font-family: $ufpel-font-family-base;
+    font-weight: $ufpel-font-weight-medium;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
