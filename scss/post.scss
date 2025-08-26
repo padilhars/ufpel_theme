@@ -1,0 +1,453 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * SCSS aplicado após o preset - Customizações finais UFPel
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @author     Seu Nome
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// =============================================================================
+// IMPORTAÇÕES DOS MÓDULOS UFPel
+// =============================================================================
+// Os módulos já foram importados no preset, mas garantimos aqui também
+@import "ufpel/variables";
+@import "ufpel/colors";
+@import "ufpel/typography";
+
+// =============================================================================
+// CUSTOMIZAÇÕES ESPECÍFICAS DO MOODLE 5.x
+// =============================================================================
+
+// Navbar principal do Moodle
+.navbar.fixed-top {
+    background-color: $ufpel-primary !important;
+    box-shadow: $ufpel-shadow-base;
+    
+    // Logo/Brand
+    .navbar-brand {
+        color: $ufpel-text-highlight !important;
+        font-family: $ufpel-font-family-headings;
+        font-weight: $ufpel-font-weight-bold;
+        
+        &:hover,
+        &:focus {
+            opacity: 0.9;
+        }
+    }
+    
+    // Links de navegação
+    .navbar-nav {
+        .nav-link {
+            color: rgba($ufpel-text-highlight, 0.9) !important;
+            font-weight: $ufpel-font-weight-medium;
+            transition: all 0.3s ease;
+            
+            &:hover,
+            &:focus {
+                color: $ufpel-text-highlight !important;
+                background-color: rgba($ufpel-text-highlight, 0.1);
+            }
+            
+            &.active {
+                color: $ufpel-text-highlight !important;
+                background-color: rgba($ufpel-text-highlight, 0.15);
+            }
+        }
+    }
+    
+    // Menu do usuário
+    .usermenu .dropdown-toggle {
+        color: $ufpel-text-highlight !important;
+        
+        .userbutton .avatar {
+            border: 2px solid $ufpel-text-highlight;
+        }
+    }
+}
+
+// Drawer (menu lateral) do Moodle 5.x
+#nav-drawer {
+    background-color: lighten($ufpel-background, 3%);
+    
+    .list-group-item {
+        background-color: transparent;
+        border: none;
+        color: $ufpel-text-primary;
+        
+        &:hover,
+        &:focus {
+            background-color: rgba($ufpel-primary, 0.1);
+            color: $ufpel-primary;
+        }
+        
+        &.active {
+            background-color: $ufpel-primary;
+            color: $ufpel-text-highlight;
+        }
+    }
+}
+
+// Breadcrumb do Moodle
+.breadcrumb-item {
+    a {
+        color: $ufpel-primary;
+        text-decoration: none;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    
+    &.active {
+        color: $ufpel-text-secondary;
+    }
+    
+    + .breadcrumb-item::before {
+        color: $ufpel-text-secondary;
+    }
+}
+
+// Cards de curso
+.course-card,
+.dashboard-card {
+    border: 1px solid $ufpel-border-color;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $ufpel-shadow-lg;
+        border-color: $ufpel-primary;
+    }
+    
+    .course-card-img,
+    .dashboard-card-img {
+        position: relative;
+        
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba($ufpel-text-primary, 0.7) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+    }
+    
+    &:hover .course-card-img::after,
+    &:hover .dashboard-card-img::after {
+        opacity: 1;
+    }
+    
+    .course-name,
+    .dashboard-card-title {
+        font-family: $ufpel-font-family-headings;
+        color: $ufpel-primary;
+    }
+}
+
+// Blocos do Moodle
+.block {
+    border: 1px solid $ufpel-border-color;
+    border-radius: $ufpel-border-radius-base;
+    margin-bottom: 1.5rem;
+    
+    .block-header,
+    .card-header {
+        background-color: lighten($ufpel-background, 2%);
+        border-bottom: 2px solid $ufpel-primary;
+        
+        h3,
+        .card-title {
+            font-family: $ufpel-font-family-headings;
+            color: $ufpel-text-primary;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+    }
+    
+    .block-content,
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+// Botões do Moodle
+.btn {
+    font-weight: $ufpel-font-weight-medium;
+    border-radius: $ufpel-border-radius-base;
+    transition: all 0.3s ease;
+    
+    &.btn-primary {
+        background-color: $ufpel-primary;
+        border-color: $ufpel-primary;
+        
+        &:hover,
+        &:focus {
+            background-color: darken($ufpel-primary, 8%);
+            border-color: darken($ufpel-primary, 8%);
+            transform: translateY(-1px);
+            box-shadow: $ufpel-shadow-base;
+        }
+    }
+    
+    &.btn-secondary {
+        background-color: $ufpel-secondary;
+        border-color: $ufpel-secondary;
+        color: $ufpel-text-highlight;
+        
+        &:hover,
+        &:focus {
+            background-color: darken($ufpel-secondary, 8%);
+            border-color: darken($ufpel-secondary, 8%);
+        }
+    }
+    
+    &.btn-outline-primary {
+        color: $ufpel-primary;
+        border-color: $ufpel-primary;
+        
+        &:hover,
+        &:focus {
+            background-color: $ufpel-primary;
+            border-color: $ufpel-primary;
+            color: $ufpel-text-highlight;
+        }
+    }
+}
+
+// Footer do Moodle
+.footer-container,
+#page-footer {
+    background-color: $ufpel-secondary;
+    color: $ufpel-text-highlight;
+    padding: 2rem 0;
+    margin-top: 3rem;
+    
+    a {
+        color: rgba($ufpel-text-highlight, 0.8);
+        
+        &:hover {
+            color: $ufpel-text-highlight;
+            text-decoration: underline;
+        }
+    }
+    
+    .footer-section {
+        margin-bottom: 1.5rem;
+        
+        h4 {
+            font-family: $ufpel-font-family-headings;
+            color: $ufpel-text-highlight;
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+// Atividades do Moodle
+.activity-item {
+    .activity-icon {
+        color: $ufpel-primary;
+    }
+    
+    .activity-name-area {
+        a {
+            color: $ufpel-text-primary;
+            text-decoration: none;
+            
+            &:hover {
+                color: $ufpel-primary;
+                text-decoration: underline;
+            }
+        }
+    }
+    
+    .activity-completion {
+        .btn {
+            border-color: $ufpel-primary;
+            
+            &:hover {
+                background-color: $ufpel-primary;
+                color: $ufpel-text-highlight;
+            }
+        }
+    }
+}
+
+// Fóruns
+.forumpost {
+    border: 1px solid $ufpel-border-color;
+    border-radius: $ufpel-border-radius-base;
+    margin-bottom: 1rem;
+    
+    .post-header {
+        background-color: lighten($ufpel-background, 2%);
+        border-bottom: 1px solid $ufpel-border-color;
+        padding: 1rem;
+        
+        .user-info {
+            .user-name {
+                font-weight: $ufpel-font-weight-medium;
+                color: $ufpel-primary;
+            }
+        }
+    }
+    
+    .post-content {
+        padding: 1rem;
+    }
+}
+
+// Mensagens e notificações
+.alert {
+    border-radius: $ufpel-border-radius-base;
+    
+    &.alert-info {
+        background-color: lighten($ufpel-primary, 45%);
+        border-color: $ufpel-primary;
+        color: darken($ufpel-primary, 20%);
+    }
+    
+    &.alert-success {
+        background-color: lighten($ufpel-success, 45%);
+        border-color: $ufpel-success;
+        color: darken($ufpel-success, 20%);
+    }
+    
+    &.alert-warning {
+        background-color: lighten($ufpel-accent, 35%);
+        border-color: $ufpel-accent;
+        color: darken($ufpel-accent, 20%);
+    }
+    
+    &.alert-danger {
+        background-color: lighten($ufpel-danger, 45%);
+        border-color: $ufpel-danger;
+        color: darken($ufpel-danger, 20%);
+    }
+}
+
+// Calendário
+.calendar-month {
+    .today {
+        background-color: lighten($ufpel-primary, 40%);
+        border: 2px solid $ufpel-primary;
+    }
+    
+    .event {
+        background-color: $ufpel-accent;
+        color: $ufpel-text-highlight;
+    }
+}
+
+// Página de login
+.login-container,
+.loginbox {
+    .login-card {
+        box-shadow: $ufpel-shadow-lg;
+        border: none;
+        
+        .login-heading {
+            font-family: $ufpel-font-family-headings;
+            color: $ufpel-primary;
+        }
+    }
+}
+
+// =============================================================================
+// AJUSTES RESPONSIVOS
+// =============================================================================
+
+@media (max-width: 768px) {
+    .navbar.fixed-top {
+        .navbar-brand {
+            font-size: 1.2rem;
+        }
+    }
+    
+    .course-card,
+    .dashboard-card {
+        margin-bottom: 1rem;
+    }
+}
+
+// =============================================================================
+// ANIMAÇÕES
+// =============================================================================
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+// =============================================================================
+// CUSTOMIZAÇÕES FINAIS
+// =============================================================================
+
+// Remove bordas arredondadas excessivas do Bootstrap 5
+.card,
+.btn,
+.form-control,
+.form-select {
+    border-radius: $ufpel-border-radius-base !important;
+}
+
+// Ajusta o container principal
+.container-fluid {
+    max-width: $ufpel-container-max-width;
+    padding-left: $ufpel-container-padding-x;
+    padding-right: $ufpel-container-padding-x;
+}
+
+// Melhora a legibilidade
+main {
+    min-height: calc(100vh - 200px);
+}
+
+// Estilos para impressão
+@media print {
+    .navbar,
+    #nav-drawer,
+    .footer-container,
+    #page-footer {
+        display: none !important;
+    }
+    
+    body {
+        font-family: $ufpel-font-family-base;
+        color: black;
+        background: white;
+    }
+}
