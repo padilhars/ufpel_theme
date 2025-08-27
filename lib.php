@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Funções e hooks do tema UFPel (VERSÃO ATUALIZADA - FASE 5)
+ * Funções e hooks do tema UFPel (VERSÃO ATUALIZADA - Moodle 5.x com Hooks modernos)
  *
  * @package    theme_ufpel
  * @copyright  2025 Universidade Federal de Pelotas
@@ -215,61 +215,9 @@ function theme_ufpel_after_upgrade_callback() {
 }
 
 /**
- * Inicializa a página com JavaScript AMD e configurações de acessibilidade.
- *
- * @param moodle_page $page
- * @return void
- */
-function theme_ufpel_page_init(moodle_page $page) {
-    global $USER;
-    
-    // Carrega o módulo principal do tema.
-    $page->requires->js_call_amd('theme_ufpel/theme', 'init', [
-        [
-            'darkModeEnabled' => get_config('theme_ufpel', 'darkmodetoggle'),
-            'highContrastEnabled' => get_config('theme_ufpel', 'highcontrasttoggle'),
-            'vLibrasEnabled' => get_config('theme_ufpel', 'vlibras'),
-            'animations' => true
-        ]
-    ]);
-    
-    // Verifica se o modo escuro está habilitado.
-    if (get_config('theme_ufpel', 'darkmodetoggle')) {
-        $page->requires->js_call_amd('theme_ufpel/darkmode', 'init');
-        
-        // Adiciona classe ao body se usuário tem preferência salva.
-        $darkmode = get_user_preferences('theme_ufpel_darkmode', false);
-        if ($darkmode) {
-            $page->add_body_class('theme-dark-mode');
-        }
-    }
-    
-    // Inicializa ferramentas de acessibilidade.
-    if (get_config('theme_ufpel', 'highcontrasttoggle')) {
-        $page->requires->js_call_amd('theme_ufpel/accessibility', 'init');
-        
-        // Verifica preferência de alto contraste.
-        $highcontrast = get_user_preferences('theme_ufpel_highcontrast', false);
-        if ($highcontrast) {
-            $page->add_body_class('high-contrast');
-        }
-    }
-    
-    // Adiciona dados ao body para JS.
-    $page->add_body_class('darkmode-' . (get_config('theme_ufpel', 'darkmodetoggle') ? 'enabled' : 'disabled'));
-    
-    // Adiciona meta tags para acessibilidade.
-    $page->requires->data_for_js('theme_ufpel_config', [
-        'darkModeEnabled' => get_config('theme_ufpel', 'darkmodetoggle'),
-        'highContrastEnabled' => get_config('theme_ufpel', 'highcontrasttoggle'),
-        'courseProgressBar' => get_config('theme_ufpel', 'courseprogressbar'),
-        'showTeacherInfo' => get_config('theme_ufpel', 'showteacherinfo'),
-        'showParticipantsCount' => get_config('theme_ufpel', 'showparticipantscount')
-    ]);
-}
-
-/**
  * Adiciona classes CSS ao body baseadas no contexto e preferências.
+ * Esta função é mantida para compatibilidade com código existente
+ * mas o trabalho principal agora é feito via hooks.
  *
  * @param array $additionalclasses Array de classes existentes.
  * @return array Array de classes atualizado.
@@ -317,81 +265,10 @@ function theme_ufpel_body_classes($additionalclasses) {
     return $additionalclasses;
 }
 
-/**
- * Retorna HTML para ser adicionado ao final do body.
- *
- * @param renderer_base $renderer
- * @return string HTML a ser adicionado.
- */
-function theme_ufpel_before_standard_html_head() {
-    $output = '';
-    
-    // Adiciona meta tags para tema responsivo.
-    $output .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
-    $output .= '<meta name="theme-color" content="#0080FF">';
-    
-    // Adiciona tags Open Graph para melhor compartilhamento.
-    $output .= '<meta property="og:site_name" content="UFPel - Moodle">';
-    $output .= '<meta property="og:type" content="website">';
-    
-    // Adiciona preconnect para otimizar carregamento de fontes.
-    $output .= '<link rel="preconnect" href="https://fonts.googleapis.com">';
-    $output .= '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
-    
-    // Adiciona preload para fontes críticas.
-    $output .= '<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap">';
-    
-    return $output;
-}
-
-/**
- * Adiciona scripts e elementos ao final do body.
- *
- * @return string HTML a ser adicionado.
- */
-function theme_ufpel_get_extra_footer_html() {
-    $output = '';
-    
-    // Adiciona widget VLibras se configurado e usuário habilitou.
-    if (get_config('theme_ufpel', 'vlibras') || get_user_preferences('theme_ufpel_vlibras', false)) {
-        $output .= '<div vw class="enabled">';
-        $output .= '<div vw-access-button class="active"></div>';
-        $output .= '<div vw-plugin-wrapper>';
-        $output .= '<div class="vw-plugin-top-wrapper"></div>';
-        $output .= '</div>';
-        $output .= '</div>';
-        $output .= '<script src="https://vlibras.gov.br/app/vlibras-plugin.js" defer></script>';
-        $output .= '<script>window.addEventListener("load", function() { new window.VLibras.Widget("https://vlibras.gov.br/app"); });</script>';
-    }
-    
-    // Adiciona script para detecção de preferências do sistema.
-    $output .= '<script>';
-    $output .= 'if (window.matchMedia) {';
-    $output .= '  const darkMode = window.matchMedia("(prefers-color-scheme: dark)");';
-    $output .= '  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");';
-    $output .= '  const highContrast = window.matchMedia("(prefers-contrast: high)");';
-    $output .= '  ';
-    $output .= '  if (!localStorage.getItem("theme_ufpel_darkmode") && darkMode.matches) {';
-    $output .= '    document.body.classList.add("theme-dark-mode");';
-    $output .= '  }';
-    $output .= '  ';
-    $output .= '  if (reducedMotion.matches) {';
-    $output .= '    document.body.classList.add("reduced-motion");';
-    $output .= '  }';
-    $output .= '  ';
-    $output .= '  if (highContrast.matches) {';
-    $output .= '    document.body.classList.add("prefers-high-contrast");';
-    $output .= '  }';
-    $output .= '}';
-    $output .= '</script>';
-    
-    // Adiciona noscript para usuários sem JavaScript.
-    $output .= '<noscript>';
-    $output .= '<style>';
-    $output .= '.requires-js { display: none !important; }';
-    $output .= '.no-js-fallback { display: block !important; }';
-    $output .= '</style>';
-    $output .= '</noscript>';
-    
-    return $output;
-}
+// NOTA: As seguintes funções foram REMOVIDAS e migradas para o sistema de hooks:
+// - theme_ufpel_page_init() -> Migrada para hooks::before_http_headers()
+// - theme_ufpel_before_standard_html_head() -> Migrada para hooks::before_standard_head_html_generation()
+// - theme_ufpel_get_extra_footer_html() -> Migrada para hooks::before_standard_footer_html_generation()
+//
+// O novo sistema de hooks do Moodle 5.x oferece melhor performance e organização
+// Consulte o arquivo classes/hooks.php para a nova implementação
