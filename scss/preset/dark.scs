@@ -1,0 +1,809 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Preset de modo escuro do tema UFPel
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @author     Seu Nome
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// =============================================================================
+// IMPORTAÇÕES BASE
+// =============================================================================
+
+// Primeiro importa o preset default para herdar configurações base
+@import "default";
+
+// =============================================================================
+// VARIÁVEIS DARK MODE
+// =============================================================================
+
+// Cores de fundo escuras
+$dark-bg-primary: #1a1a1a !default;
+$dark-bg-secondary: #2d2d2d !default;
+$dark-bg-tertiary: #404040 !default;
+$dark-bg-card: #242424 !default;
+$dark-bg-hover: #333333 !default;
+$dark-bg-active: #3a3a3a !default;
+
+// Cores de texto no modo escuro
+$dark-text-primary: #e0e0e0 !default;
+$dark-text-secondary: #b0b0b0 !default;
+$dark-text-muted: #808080 !default;
+$dark-text-highlight: #ffffff !default;
+
+// Cores UFPel adaptadas para modo escuro
+$dark-ufpel-primary: #3399ff !default;     // Azul mais claro
+$dark-ufpel-secondary: #0066cc !default;   // Azul ajustado
+$dark-ufpel-accent: #ffb833 !default;      // Laranja mais suave
+$dark-ufpel-success: #4caf50 !default;
+$dark-ufpel-warning: #ff9800 !default;
+$dark-ufpel-danger: #f44336 !default;
+$dark-ufpel-info: #2196f3 !default;
+
+// Bordas no modo escuro
+$dark-border-color: rgba(255, 255, 255, 0.1) !default;
+$dark-border-color-light: rgba(255, 255, 255, 0.05) !default;
+$dark-border-color-strong: rgba(255, 255, 255, 0.2) !default;
+
+// Sombras adaptadas
+$dark-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3) !default;
+$dark-shadow-base: 0 0.5rem 1rem rgba(0, 0, 0, 0.4) !default;
+$dark-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.5) !default;
+
+// =============================================================================
+// APLICAÇÃO DO TEMA ESCURO
+// =============================================================================
+
+body.theme-dark-mode {
+    // Cores base
+    background-color: $dark-bg-primary;
+    color: $dark-text-primary;
+    
+    // =============================================================================
+    // ELEMENTOS BASE
+    // =============================================================================
+    
+    // Headings
+    h1, h2, h3, h4, h5, h6,
+    .h1, .h2, .h3, .h4, .h5, .h6 {
+        color: $dark-text-highlight;
+    }
+    
+    // Links
+    a {
+        color: $dark-ufpel-primary;
+        
+        &:hover,
+        &:focus {
+            color: lighten($dark-ufpel-primary, 10%);
+        }
+    }
+    
+    // Parágrafos e texto
+    p {
+        color: $dark-text-primary;
+    }
+    
+    small,
+    .small {
+        color: $dark-text-secondary;
+    }
+    
+    .text-muted {
+        color: $dark-text-muted !important;
+    }
+    
+    // Código
+    code {
+        background-color: $dark-bg-tertiary;
+        color: #ff6b6b;
+    }
+    
+    pre {
+        background-color: $dark-bg-secondary;
+        border-color: $dark-border-color;
+        color: $dark-text-primary;
+    }
+    
+    // Blockquote
+    blockquote,
+    .blockquote {
+        background-color: rgba($dark-bg-secondary, 0.5);
+        border-left-color: $dark-ufpel-primary;
+        color: $dark-text-primary;
+    }
+    
+    // Listas
+    ul li,
+    ol li {
+        color: $dark-text-primary;
+    }
+    
+    // =============================================================================
+    // NAVEGAÇÃO
+    // =============================================================================
+    
+    // Navbar
+    .navbar {
+        background-color: $dark-bg-secondary !important;
+        border-bottom: 1px solid $dark-border-color;
+        
+        .navbar-brand {
+            color: $dark-text-highlight !important;
+        }
+        
+        .navbar-nav {
+            .nav-link {
+                color: $dark-text-primary !important;
+                
+                &:hover,
+                &:focus {
+                    color: $dark-text-highlight !important;
+                    background-color: $dark-bg-hover;
+                }
+                
+                &.active {
+                    color: $dark-ufpel-primary !important;
+                    background-color: $dark-bg-active;
+                }
+            }
+        }
+        
+        .dropdown-menu {
+            background-color: $dark-bg-secondary;
+            border-color: $dark-border-color;
+            
+            .dropdown-item {
+                color: $dark-text-primary;
+                
+                &:hover,
+                &:focus {
+                    background-color: $dark-bg-hover;
+                    color: $dark-text-highlight;
+                }
+            }
+        }
+    }
+    
+    // Breadcrumb
+    .breadcrumb {
+        background-color: transparent;
+        
+        .breadcrumb-item {
+            a {
+                color: $dark-ufpel-primary;
+            }
+            
+            &.active {
+                color: $dark-text-secondary;
+            }
+            
+            + .breadcrumb-item::before {
+                color: $dark-text-muted;
+            }
+        }
+    }
+    
+    // Drawer/Sidebar
+    #nav-drawer,
+    .drawer {
+        background-color: $dark-bg-secondary;
+        border-right: 1px solid $dark-border-color;
+        
+        .list-group-item {
+            background-color: transparent;
+            color: $dark-text-primary;
+            border-color: $dark-border-color;
+            
+            &:hover,
+            &:focus {
+                background-color: $dark-bg-hover;
+                color: $dark-text-highlight;
+            }
+            
+            &.active {
+                background-color: $dark-ufpel-primary;
+                color: $dark-text-highlight;
+                border-color: $dark-ufpel-primary;
+            }
+        }
+    }
+    
+    // =============================================================================
+    // CARDS E CONTAINERS
+    // =============================================================================
+    
+    // Cards
+    .card {
+        background-color: $dark-bg-card;
+        border-color: $dark-border-color;
+        
+        .card-header {
+            background-color: $dark-bg-secondary;
+            border-bottom-color: $dark-border-color;
+            color: $dark-text-highlight;
+        }
+        
+        .card-body {
+            color: $dark-text-primary;
+        }
+        
+        .card-footer {
+            background-color: $dark-bg-secondary;
+            border-top-color: $dark-border-color;
+        }
+    }
+    
+    // Course cards
+    .course-card,
+    .dashboard-card {
+        background-color: $dark-bg-card;
+        border-color: $dark-border-color;
+        
+        &:hover {
+            border-color: $dark-ufpel-primary;
+            box-shadow: $dark-shadow-lg;
+        }
+        
+        .course-name,
+        .dashboard-card-title {
+            color: $dark-ufpel-primary;
+        }
+        
+        .course-summary {
+            color: $dark-text-secondary;
+        }
+    }
+    
+    // Blocks
+    .block {
+        background-color: $dark-bg-card;
+        border-color: $dark-border-color;
+        
+        .block-header,
+        .card-header {
+            background-color: $dark-bg-secondary;
+            border-bottom-color: $dark-ufpel-primary;
+            
+            h3 {
+                color: $dark-text-highlight;
+            }
+        }
+    }
+    
+    // Modals
+    .modal-content {
+        background-color: $dark-bg-secondary;
+        border-color: $dark-border-color;
+        
+        .modal-header {
+            background-color: $dark-bg-tertiary;
+            border-bottom-color: $dark-border-color;
+            color: $dark-text-highlight;
+            
+            .close {
+                color: $dark-text-primary;
+            }
+        }
+        
+        .modal-body {
+            color: $dark-text-primary;
+        }
+        
+        .modal-footer {
+            background-color: $dark-bg-tertiary;
+            border-top-color: $dark-border-color;
+        }
+    }
+    
+    // =============================================================================
+    // FORMULÁRIOS
+    // =============================================================================
+    
+    .form-control,
+    .form-select,
+    .custom-select,
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="date"],
+    input[type="time"],
+    textarea,
+    select {
+        background-color: $dark-bg-tertiary;
+        border-color: $dark-border-color;
+        color: $dark-text-primary;
+        
+        &:focus {
+            background-color: $dark-bg-secondary;
+            border-color: $dark-ufpel-primary;
+            color: $dark-text-primary;
+            box-shadow: 0 0 0 0.2rem rgba($dark-ufpel-primary, 0.25);
+        }
+        
+        &:disabled,
+        &[readonly] {
+            background-color: $dark-bg-tertiary;
+            opacity: 0.5;
+        }
+        
+        &::placeholder {
+            color: $dark-text-muted;
+        }
+    }
+    
+    .form-label,
+    label {
+        color: $dark-text-primary;
+    }
+    
+    .form-text {
+        color: $dark-text-secondary;
+    }
+    
+    .form-check-input {
+        background-color: $dark-bg-tertiary;
+        border-color: $dark-border-color;
+        
+        &:checked {
+            background-color: $dark-ufpel-primary;
+            border-color: $dark-ufpel-primary;
+        }
+    }
+    
+    .input-group-text {
+        background-color: $dark-bg-tertiary;
+        border-color: $dark-border-color;
+        color: $dark-text-secondary;
+    }
+    
+    // =============================================================================
+    // BOTÕES
+    // =============================================================================
+    
+    .btn {
+        // Botão primário
+        &.btn-primary {
+            background-color: $dark-ufpel-primary;
+            border-color: $dark-ufpel-primary;
+            color: $dark-text-highlight;
+            
+            &:hover,
+            &:focus {
+                background-color: darken($dark-ufpel-primary, 10%);
+                border-color: darken($dark-ufpel-primary, 10%);
+            }
+        }
+        
+        // Botão secundário
+        &.btn-secondary {
+            background-color: $dark-bg-tertiary;
+            border-color: $dark-border-color;
+            color: $dark-text-primary;
+            
+            &:hover,
+            &:focus {
+                background-color: $dark-bg-hover;
+                border-color: $dark-border-color-strong;
+                color: $dark-text-highlight;
+            }
+        }
+        
+        // Botão outline
+        &.btn-outline-primary {
+            color: $dark-ufpel-primary;
+            border-color: $dark-ufpel-primary;
+            
+            &:hover,
+            &:focus {
+                background-color: $dark-ufpel-primary;
+                color: $dark-text-highlight;
+            }
+        }
+        
+        // Botões de estado
+        &.btn-success {
+            background-color: $dark-ufpel-success;
+            border-color: $dark-ufpel-success;
+        }
+        
+        &.btn-warning {
+            background-color: $dark-ufpel-warning;
+            border-color: $dark-ufpel-warning;
+        }
+        
+        &.btn-danger {
+            background-color: $dark-ufpel-danger;
+            border-color: $dark-ufpel-danger;
+        }
+        
+        &.btn-info {
+            background-color: $dark-ufpel-info;
+            border-color: $dark-ufpel-info;
+        }
+        
+        &.btn-light {
+            background-color: $dark-bg-tertiary;
+            border-color: $dark-border-color;
+            color: $dark-text-primary;
+        }
+        
+        &.btn-dark {
+            background-color: $dark-bg-primary;
+            border-color: $dark-border-color;
+            color: $dark-text-primary;
+        }
+    }
+    
+    // =============================================================================
+    // TABELAS
+    // =============================================================================
+    
+    .table {
+        color: $dark-text-primary;
+        
+        thead {
+            th {
+                background-color: $dark-bg-secondary;
+                border-color: $dark-border-color;
+                color: $dark-text-highlight;
+            }
+        }
+        
+        tbody {
+            tr {
+                border-color: $dark-border-color;
+                
+                &:hover {
+                    background-color: $dark-bg-hover;
+                }
+            }
+            
+            td {
+                border-color: $dark-border-color;
+            }
+        }
+    }
+    
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba($dark-bg-secondary, 0.3);
+    }
+    
+    // =============================================================================
+    // ALERTAS E NOTIFICAÇÕES
+    // =============================================================================
+    
+    .alert {
+        &.alert-primary {
+            background-color: rgba($dark-ufpel-primary, 0.2);
+            border-color: $dark-ufpel-primary;
+            color: lighten($dark-ufpel-primary, 20%);
+        }
+        
+        &.alert-success {
+            background-color: rgba($dark-ufpel-success, 0.2);
+            border-color: $dark-ufpel-success;
+            color: lighten($dark-ufpel-success, 20%);
+        }
+        
+        &.alert-warning {
+            background-color: rgba($dark-ufpel-warning, 0.2);
+            border-color: $dark-ufpel-warning;
+            color: lighten($dark-ufpel-warning, 20%);
+        }
+        
+        &.alert-danger {
+            background-color: rgba($dark-ufpel-danger, 0.2);
+            border-color: $dark-ufpel-danger;
+            color: lighten($dark-ufpel-danger, 20%);
+        }
+        
+        &.alert-info {
+            background-color: rgba($dark-ufpel-info, 0.2);
+            border-color: $dark-ufpel-info;
+            color: lighten($dark-ufpel-info, 20%);
+        }
+    }
+    
+    .badge {
+        &.badge-primary {
+            background-color: $dark-ufpel-primary;
+        }
+        
+        &.badge-secondary {
+            background-color: $dark-bg-tertiary;
+        }
+        
+        &.badge-success {
+            background-color: $dark-ufpel-success;
+        }
+        
+        &.badge-warning {
+            background-color: $dark-ufpel-warning;
+            color: $dark-bg-primary;
+        }
+        
+        &.badge-danger {
+            background-color: $dark-ufpel-danger;
+        }
+        
+        &.badge-info {
+            background-color: $dark-ufpel-info;
+        }
+    }
+    
+    // =============================================================================
+    // PAGINAÇÃO
+    // =============================================================================
+    
+    .pagination {
+        .page-link {
+            background-color: $dark-bg-secondary;
+            border-color: $dark-border-color;
+            color: $dark-text-primary;
+            
+            &:hover {
+                background-color: $dark-bg-hover;
+                border-color: $dark-ufpel-primary;
+                color: $dark-text-highlight;
+            }
+        }
+        
+        .page-item {
+            &.active .page-link {
+                background-color: $dark-ufpel-primary;
+                border-color: $dark-ufpel-primary;
+                color: $dark-text-highlight;
+            }
+            
+            &.disabled .page-link {
+                background-color: $dark-bg-tertiary;
+                color: $dark-text-muted;
+                opacity: 0.5;
+            }
+        }
+    }
+    
+    // =============================================================================
+    // PROGRESS BARS
+    // =============================================================================
+    
+    .progress {
+        background-color: $dark-bg-tertiary;
+        
+        .progress-bar {
+            background-color: $dark-ufpel-primary;
+        }
+    }
+    
+    // =============================================================================
+    // FOOTER
+    // =============================================================================
+    
+    .footer-container,
+    #page-footer {
+        background-color: $dark-bg-secondary;
+        border-top: 1px solid $dark-border-color;
+        color: $dark-text-primary;
+        
+        a {
+            color: $dark-ufpel-primary;
+            
+            &:hover {
+                color: lighten($dark-ufpel-primary, 10%);
+            }
+        }
+        
+        h4, h5 {
+            color: $dark-text-highlight;
+        }
+    }
+    
+    // =============================================================================
+    // CALENDÁRIO
+    // =============================================================================
+    
+    .calendar {
+        .today {
+            background-color: rgba($dark-ufpel-primary, 0.2);
+            border-color: $dark-ufpel-primary;
+        }
+        
+        .event {
+            background-color: $dark-ufpel-accent;
+            color: $dark-bg-primary;
+        }
+        
+        td, th {
+            border-color: $dark-border-color;
+        }
+    }
+    
+    // =============================================================================
+    // ATIVIDADES MOODLE
+    // =============================================================================
+    
+    .activity-item {
+        background-color: $dark-bg-card;
+        border-color: $dark-border-color;
+        
+        .activity-icon {
+            color: $dark-ufpel-primary;
+        }
+        
+        .activity-name-area a {
+            color: $dark-text-primary;
+            
+            &:hover {
+                color: $dark-ufpel-primary;
+            }
+        }
+    }
+    
+    .forumpost {
+        background-color: $dark-bg-card;
+        border-color: $dark-border-color;
+        
+        .post-header {
+            background-color: $dark-bg-secondary;
+            border-bottom-color: $dark-border-color;
+        }
+    }
+    
+    // =============================================================================
+    // EDITOR DE TEXTO
+    // =============================================================================
+    
+    .editor_atto,
+    .editor_tinymce {
+        background-color: $dark-bg-secondary;
+        
+        .editor_atto_toolbar,
+        .mce-toolbar {
+            background-color: $dark-bg-tertiary;
+            border-color: $dark-border-color;
+        }
+        
+        .editor_atto_content,
+        .mce-content-body {
+            background-color: $dark-bg-secondary;
+            color: $dark-text-primary;
+        }
+    }
+    
+    // =============================================================================
+    // TOOLTIPS E POPOVERS
+    // =============================================================================
+    
+    .tooltip {
+        .tooltip-inner {
+            background-color: $dark-bg-tertiary;
+            color: $dark-text-primary;
+        }
+        
+        .arrow::before {
+            border-top-color: $dark-bg-tertiary;
+            border-bottom-color: $dark-bg-tertiary;
+        }
+    }
+    
+    .popover {
+        background-color: $dark-bg-secondary;
+        border-color: $dark-border-color;
+        
+        .popover-header {
+            background-color: $dark-bg-tertiary;
+            border-bottom-color: $dark-border-color;
+            color: $dark-text-highlight;
+        }
+        
+        .popover-body {
+            color: $dark-text-primary;
+        }
+    }
+    
+    // =============================================================================
+    // SCROLLBARS (Webkit)
+    // =============================================================================
+    
+    ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: $dark-bg-secondary;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: $dark-bg-tertiary;
+        border-radius: 6px;
+        
+        &:hover {
+            background: lighten($dark-bg-tertiary, 10%);
+        }
+    }
+    
+    // =============================================================================
+    // AJUSTES ESPECÍFICOS MOODLE 5.x
+    // =============================================================================
+    
+    // Login page
+    .pagelayout-login {
+        background-color: $dark-bg-primary;
+        
+        .login-container,
+        .loginbox {
+            .login-card {
+                background-color: $dark-bg-secondary;
+                border-color: $dark-border-color;
+            }
+        }
+    }
+    
+    // Quiz
+    .que {
+        background-color: $dark-bg-card;
+        border-color: $dark-border-color;
+        
+        .info {
+            background-color: $dark-bg-secondary;
+        }
+        
+        .content {
+            color: $dark-text-primary;
+        }
+    }
+    
+    // File picker
+    .filepicker {
+        background-color: $dark-bg-secondary;
+        
+        .filepicker-filelist {
+            background-color: $dark-bg-tertiary;
+        }
+    }
+    
+    // User profile
+    .userprofile {
+        .profile_tree {
+            background-color: $dark-bg-card;
+            
+            section {
+                border-color: $dark-border-color;
+            }
+        }
+    }
+}
+
+// =============================================================================
+// TRANSIÇÕES SUAVES
+// =============================================================================
+
+// Adiciona transições quando o modo escuro é alternado
+body {
+    &.theme-transitioning {
+        * {
+            transition: background-color 0.3s ease,
+                       color 0.3s ease,
+                       border-color 0.3s ease !important;
+        }
+    }
+}
