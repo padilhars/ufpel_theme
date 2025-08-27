@@ -376,4 +376,4 @@ class UFPelTheme {
             
             if (touchStartX - touchEndX > swipeThreshold) {
                 // Swipe left - fecha drawer
-                drawer.classList.
+                drawer.classList.remove('show');
