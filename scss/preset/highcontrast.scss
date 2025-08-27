@@ -95,4 +95,697 @@ body.high-contrast {
     // TIPOGRAFIA
     // =============================================================================
     
-    // Todos
+    // Todos os textos em branco
+    h1, h2, h3, h4, h5, h6,
+    .h1, .h2, .h3, .h4, .h5, .h6,
+    p, span, div, li, td, th, label,
+    .text-muted, .text-secondary {
+        color: $hc-text-primary !important;
+        background-color: transparent !important;
+    }
+    
+    // Aumenta tamanho mínimo de fonte
+    body {
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+        font-weight: 400 !important;
+    }
+    
+    // Títulos mais destacados
+    h1, .h1 { font-size: 2.5rem !important; font-weight: 700 !important; }
+    h2, .h2 { font-size: 2.2rem !important; font-weight: 700 !important; }
+    h3, .h3 { font-size: 1.9rem !important; font-weight: 700 !important; }
+    h4, .h4 { font-size: 1.6rem !important; font-weight: 600 !important; }
+    h5, .h5 { font-size: 1.3rem !important; font-weight: 600 !important; }
+    h6, .h6 { font-size: 1.1rem !important; font-weight: 600 !important; }
+    
+    // =============================================================================
+    // LINKS
+    // =============================================================================
+    
+    a {
+        color: $hc-text-link !important;
+        text-decoration: underline !important;
+        font-weight: 600 !important;
+        
+        &:visited {
+            color: $hc-text-visited !important;
+        }
+        
+        &:hover {
+            color: $hc-text-active !important;
+            text-decoration: underline !important;
+            background-color: $hc-bg-tertiary !important;
+            outline: $hc-border-width solid $hc-text-active !important;
+        }
+        
+        &:focus {
+            outline: $hc-focus-outline-width solid $hc-border-focus !important;
+            outline-offset: 2px !important;
+            background-color: $hc-bg-tertiary !important;
+        }
+        
+        &:active {
+            color: $hc-text-active !important;
+        }
+    }
+    
+    // =============================================================================
+    // BOTÕES
+    // =============================================================================
+    
+    button,
+    .btn,
+    [role="button"],
+    input[type="submit"],
+    input[type="button"],
+    input[type="reset"] {
+        background: $hc-text-primary !important;
+        color: $hc-bg-primary !important;
+        border: $hc-border-width solid $hc-text-primary !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        padding: 10px 20px !important;
+        
+        &:hover {
+            background: $hc-bg-primary !important;
+            color: $hc-text-primary !important;
+            border-color: $hc-text-active !important;
+            outline: $hc-border-width solid $hc-text-active !important;
+        }
+        
+        &:focus {
+            outline: $hc-focus-outline-width solid $hc-border-focus !important;
+            outline-offset: 2px !important;
+        }
+        
+        &:active {
+            background: $hc-text-active !important;
+            color: $hc-bg-primary !important;
+        }
+        
+        &:disabled,
+        &.disabled {
+            background: $hc-bg-tertiary !important;
+            color: #666666 !important;
+            border-color: #666666 !important;
+            cursor: not-allowed !important;
+        }
+    }
+    
+    // Estados específicos de botões
+    .btn-primary,
+    .btn-success {
+        background: $hc-success !important;
+        color: $hc-bg-primary !important;
+        border-color: $hc-success !important;
+    }
+    
+    .btn-danger {
+        background: $hc-danger !important;
+        color: $hc-text-primary !important;
+        border-color: $hc-danger !important;
+    }
+    
+    .btn-warning {
+        background: $hc-warning !important;
+        color: $hc-bg-primary !important;
+        border-color: $hc-warning !important;
+    }
+    
+    .btn-info {
+        background: $hc-info !important;
+        color: $hc-bg-primary !important;
+        border-color: $hc-info !important;
+    }
+    
+    // =============================================================================
+    // FORMULÁRIOS
+    // =============================================================================
+    
+    input,
+    textarea,
+    select,
+    .form-control,
+    .form-select,
+    .custom-select {
+        background: $hc-bg-primary !important;
+        color: $hc-text-primary !important;
+        border: $hc-border-width solid $hc-text-primary !important;
+        font-size: 16px !important;
+        padding: 8px 12px !important;
+        
+        &:focus {
+            outline: $hc-focus-outline-width solid $hc-border-focus !important;
+            outline-offset: 2px !important;
+            border-color: $hc-border-focus !important;
+            background: $hc-bg-tertiary !important;
+        }
+        
+        &::placeholder {
+            color: #aaaaaa !important;
+        }
+        
+        &:disabled,
+        &[readonly] {
+            background: $hc-bg-tertiary !important;
+            color: #666666 !important;
+            border-color: #666666 !important;
+        }
+    }
+    
+    // Labels
+    label,
+    .form-label {
+        color: $hc-text-primary !important;
+        font-weight: 600 !important;
+        margin-bottom: 4px !important;
+    }
+    
+    // Checkboxes e radios
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 20px !important;
+        height: 20px !important;
+        border: $hc-border-width solid $hc-text-primary !important;
+        
+        &:checked {
+            background: $hc-text-primary !important;
+            border-color: $hc-text-primary !important;
+            
+            &::before {
+                color: $hc-bg-primary !important;
+            }
+        }
+        
+        &:focus {
+            outline: $hc-focus-outline-width solid $hc-border-focus !important;
+            outline-offset: 2px !important;
+        }
+    }
+    
+    // Mensagens de validação
+    .invalid-feedback,
+    .valid-feedback,
+    .form-text {
+        font-weight: 600 !important;
+    }
+    
+    .invalid-feedback {
+        color: $hc-danger !important;
+    }
+    
+    .valid-feedback {
+        color: $hc-success !important;
+    }
+    
+    // =============================================================================
+    // NAVEGAÇÃO
+    // =============================================================================
+    
+    .navbar,
+    nav {
+        background: $hc-bg-secondary !important;
+        border-bottom: $hc-border-width solid $hc-text-primary !important;
+        
+        .navbar-brand,
+        .nav-link {
+            color: $hc-text-primary !important;
+            font-weight: 600 !important;
+            
+            &:hover {
+                background: $hc-text-primary !important;
+                color: $hc-bg-primary !important;
+            }
+            
+            &:focus {
+                outline: $hc-focus-outline-width solid $hc-border-focus !important;
+                outline-offset: -2px !important;
+            }
+            
+            &.active {
+                background: $hc-text-primary !important;
+                color: $hc-bg-primary !important;
+                border: $hc-border-width solid $hc-text-primary !important;
+            }
+        }
+    }
+    
+    // Breadcrumb
+    .breadcrumb {
+        background: $hc-bg-secondary !important;
+        border: $hc-border-width solid $hc-text-primary !important;
+        padding: 10px !important;
+        
+        .breadcrumb-item {
+            color: $hc-text-primary !important;
+            
+            &::before {
+                color: $hc-text-primary !important;
+                content: ">" !important;
+                font-weight: 700 !important;
+            }
+            
+            a {
+                color: $hc-text-link !important;
+            }
+        }
+    }
+    
+    // Dropdown
+    .dropdown-menu {
+        background: $hc-bg-primary !important;
+        border: $hc-border-width solid $hc-text-primary !important;
+        
+        .dropdown-item {
+            color: $hc-text-primary !important;
+            border-bottom: 1px solid $hc-border-color !important;
+            
+            &:hover,
+            &:focus {
+                background: $hc-text-primary !important;
+                color: $hc-bg-primary !important;
+            }
+        }
+    }
+    
+    // =============================================================================
+    // CARDS E CONTAINERS
+    // =============================================================================
+    
+    .card,
+    .block,
+    .box {
+        background: $hc-bg-primary !important;
+        border: $hc-border-width solid $hc-text-primary !important;
+        
+        .card-header,
+        .block-header {
+            background: $hc-bg-secondary !important;
+            color: $hc-text-primary !important;
+            border-bottom: $hc-border-width solid $hc-text-primary !important;
+            font-weight: 700 !important;
+        }
+        
+        .card-body,
+        .block-content {
+            background: $hc-bg-primary !important;
+            color: $hc-text-primary !important;
+        }
+        
+        .card-footer {
+            background: $hc-bg-secondary !important;
+            border-top: $hc-border-width solid $hc-text-primary !important;
+        }
+    }
+    
+    // =============================================================================
+    // TABELAS
+    // =============================================================================
+    
+    table,
+    .table {
+        background: $hc-bg-primary !important;
+        border: $hc-border-width solid $hc-text-primary !important;
+        
+        thead {
+            background: $hc-bg-secondary !important;
+            
+            th {
+                background: $hc-bg-secondary !important;
+                color: $hc-text-primary !important;
+                border: $hc-border-width solid $hc-text-primary !important;
+                font-weight: 700 !important;
+                text-transform: uppercase !important;
+            }
+        }
+        
+        tbody {
+            tr {
+                background: $hc-bg-primary !important;
+                border: 1px solid $hc-text-primary !important;
+                
+                &:nth-child(even) {
+                    background: $hc-bg-tertiary !important;
+                }
+                
+                &:hover {
+                    background: $hc-text-primary !important;
+                    
+                    td {
+                        color: $hc-bg-primary !important;
+                    }
+                }
+            }
+            
+            td {
+                color: $hc-text-primary !important;
+                border: 1px solid $hc-text-primary !important;
+                padding: 8px !important;
+            }
+        }
+    }
+    
+    // =============================================================================
+    // ALERTAS E NOTIFICAÇÕES
+    // =============================================================================
+    
+    .alert {
+        border: $hc-border-width solid !important;
+        font-weight: 600 !important;
+        
+        &.alert-success {
+            background: $hc-bg-primary !important;
+            color: $hc-success !important;
+            border-color: $hc-success !important;
+        }
+        
+        &.alert-danger,
+        &.alert-error {
+            background: $hc-bg-primary !important;
+            color: $hc-danger !important;
+            border-color: $hc-danger !important;
+        }
+        
+        &.alert-warning {
+            background: $hc-bg-primary !important;
+            color: $hc-warning !important;
+            border-color: $hc-warning !important;
+        }
+        
+        &.alert-info {
+            background: $hc-bg-primary !important;
+            color: $hc-info !important;
+            border-color: $hc-info !important;
+        }
+    }
+    
+    .badge {
+        font-weight: 700 !important;
+        border: $hc-border-width solid !important;
+        
+        &.badge-success {
+            background: $hc-success !important;
+            color: $hc-bg-primary !important;
+            border-color: $hc-success !important;
+        }
+        
+        &.badge-danger {
+            background: $hc-danger !important;
+            color: $hc-text-primary !important;
+            border-color: $hc-danger !important;
+        }
+        
+        &.badge-warning {
+            background: $hc-warning !important;
+            color: $hc-bg-primary !important;
+            border-color: $hc-warning !important;
+        }
+        
+        &.badge-info {
+            background: $hc-info !important;
+            color: $hc-bg-primary !important;
+            border-color: $hc-info !important;
+        }
+    }
+    
+    // =============================================================================
+    // MODAIS
+    // =============================================================================
+    
+    .modal {
+        .modal-content {
+            background: $hc-bg-primary !important;
+            border: $hc-border-width solid $hc-text-primary !important;
+        }
+        
+        .modal-header {
+            background: $hc-bg-secondary !important;
+            border-bottom: $hc-border-width solid $hc-text-primary !important;
+            
+            .modal-title {
+                color: $hc-text-primary !important;
+                font-weight: 700 !important;
+            }
+            
+            .close,
+            .btn-close {
+                color: $hc-text-primary !important;
+                font-size: 2rem !important;
+                font-weight: 700 !important;
+            }
+        }
+        
+        .modal-body {
+            background: $hc-bg-primary !important;
+            color: $hc-text-primary !important;
+        }
+        
+        .modal-footer {
+            background: $hc-bg-secondary !important;
+            border-top: $hc-border-width solid $hc-text-primary !important;
+        }
+    }
+    
+    .modal-backdrop {
+        background: $hc-bg-primary !important;
+        opacity: 0.95 !important;
+    }
+    
+    // =============================================================================
+    // IMAGENS E MÍDIA
+    // =============================================================================
+    
+    img {
+        border: $hc-border-width solid $hc-text-primary !important;
+        opacity: 0.9 !important;
+        
+        // Adiciona contraste nas imagens
+        filter: contrast(1.2) !important;
+    }
+    
+    video,
+    iframe {
+        border: $hc-border-width solid $hc-text-primary !important;
+    }
+    
+    // Remove imagens decorativas
+    [role="presentation"],
+    [aria-hidden="true"] {
+        &:not(.fa):not(.fas):not(.far) {
+            display: none !important;
+        }
+    }
+    
+    // =============================================================================
+    // ÍCONES
+    // =============================================================================
+    
+    .fa,
+    .fas,
+    .far,
+    .fab,
+    [class*="icon-"] {
+        color: $hc-text-primary !important;
+        font-size: 1.2em !important;
+    }
+    
+    // =============================================================================
+    // FOCO MELHORADO
+    // =============================================================================
+    
+    // Todos os elementos focáveis
+    *:focus,
+    *:focus-visible,
+    *:focus-within {
+        outline: $hc-focus-outline-width solid $hc-border-focus !important;
+        outline-offset: 2px !important;
+        z-index: 9999 !important;
+    }
+    
+    // =============================================================================
+    // PAGINAÇÃO
+    // =============================================================================
+    
+    .pagination {
+        .page-link {
+            background: $hc-bg-primary !important;
+            color: $hc-text-primary !important;
+            border: $hc-border-width solid $hc-text-primary !important;
+            font-weight: 600 !important;
+            
+            &:hover {
+                background: $hc-text-primary !important;
+                color: $hc-bg-primary !important;
+            }
+            
+            &:focus {
+                outline: $hc-focus-outline-width solid $hc-border-focus !important;
+                outline-offset: -2px !important;
+            }
+        }
+        
+        .page-item {
+            &.active .page-link {
+                background: $hc-text-primary !important;
+                color: $hc-bg-primary !important;
+                font-weight: 700 !important;
+            }
+            
+            &.disabled .page-link {
+                background: $hc-bg-tertiary !important;
+                color: #666666 !important;
+                border-color: #666666 !important;
+            }
+        }
+    }
+    
+    // =============================================================================
+    // BARRA DE PROGRESSO
+    // =============================================================================
+    
+    .progress {
+        background: $hc-bg-primary !important;
+        border: $hc-border-width solid $hc-text-primary !important;
+        height: 30px !important;
+        
+        .progress-bar {
+            background: $hc-text-primary !important;
+            color: $hc-bg-primary !important;
+            font-weight: 700 !important;
+            font-size: 14px !important;
+            line-height: 26px !important;
+        }
+    }
+    
+    // =============================================================================
+    // TOOLTIPS E POPOVERS
+    // =============================================================================
+    
+    .tooltip {
+        .tooltip-inner {
+            background: $hc-text-primary !important;
+            color: $hc-bg-primary !important;
+            border: $hc-border-width solid $hc-text-primary !important;
+            font-weight: 600 !important;
+        }
+    }
+    
+    .popover {
+        background: $hc-bg-primary !important;
+        border: $hc-border-width solid $hc-text-primary !important;
+        
+        .popover-header {
+            background: $hc-bg-secondary !important;
+            color: $hc-text-primary !important;
+            border-bottom: $hc-border-width solid $hc-text-primary !important;
+            font-weight: 700 !important;
+        }
+        
+        .popover-body {
+            color: $hc-text-primary !important;
+        }
+    }
+    
+    // =============================================================================
+    // FOOTER
+    // =============================================================================
+    
+    footer,
+    .footer,
+    #page-footer {
+        background: $hc-bg-secondary !important;
+        color: $hc-text-primary !important;
+        border-top: $hc-border-width solid $hc-text-primary !important;
+        
+        a {
+            color: $hc-text-link !important;
+            text-decoration: underline !important;
+        }
+    }
+    
+    // =============================================================================
+    // ELEMENTOS ESPECÍFICOS MOODLE
+    // =============================================================================
+    
+    // Atividades
+    .activity-item {
+        border: $hc-border-width solid $hc-text-primary !important;
+        padding: 10px !important;
+        margin: 5px 0 !important;
+        
+        .activity-name {
+            font-weight: 600 !important;
+        }
+    }
+    
+    // Quiz
+    .que {
+        border: $hc-border-width solid $hc-text-primary !important;
+        
+        .info {
+            background: $hc-bg-secondary !important;
+            border-bottom: $hc-border-width solid $hc-text-primary !important;
+        }
+        
+        .content {
+            background: $hc-bg-primary !important;
+        }
+        
+        .outcome,
+        .comment {
+            border-top: $hc-border-width solid $hc-text-primary !important;
+        }
+    }
+    
+    // Forum
+    .forumpost {
+        border: $hc-border-width solid $hc-text-primary !important;
+        
+        .header {
+            background: $hc-bg-secondary !important;
+            border-bottom: $hc-border-width solid $hc-text-primary !important;
+        }
+    }
+    
+    // Calendário
+    .calendar {
+        th,
+        td {
+            border: $hc-border-width solid $hc-text-primary !important;
+        }
+        
+        .today {
+            background: $hc-text-primary !important;
+            color: $hc-bg-primary !important;
+            font-weight: 700 !important;
+        }
+        
+        .event {
+            background: $hc-info !important;
+            color: $hc-bg-primary !important;
+            border: $hc-border-width solid $hc-info !important;
+        }
+    }
+    
+    // =============================================================================
+    // IMPRESSÃO
+    // =============================================================================
+    
+    @media print {
+        background: white !important;
+        color: black !important;
+        
+        * {
+            background: white !important;
+            color: black !important;
+            border-color: black !important;
+        }
+        
+        a {
+            color: black !important;
+            text-decoration: underline !important;
+        }
+    }
+}
