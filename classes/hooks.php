@@ -215,15 +215,25 @@ class hooks {
             $page->add_body_class('course-' . $page->course->id);
         }
         
-        // Adiciona classe para dispositivos móveis
-        if (\core\output\devices::is_mobile()) {
-            $page->add_body_class('is-mobile');
-        }
         
-        // Adiciona classe para tablet
-        if (\core_useragent::is_tablet()) {
+
+        // Adiciona classe para dispositivos móveis
+        //if (\core_useragent::is_mobile()) {
+        //    $page->add_body_class('is-mobile');
+        //}
+        
+        //// Adiciona classe para tablet
+        //if (\core_useragent::is_tablet()) {
+        //    $page->add_body_class('is-tablet');
+        //}
+
+        $devicetype = \core_useragent::get_device_type();
+
+        if ($devicetype === \core_useragent::DEVICETYPE_MOBILE) {
+            $page->add_body_class('is-mobile');
+        } else if ($devicetype === \core_useragent::DEVICETYPE_TABLET) {
             $page->add_body_class('is-tablet');
-        }
+        } 
         
         // Adiciona classe para o modo de configuração do tema
         $page->add_body_class('darkmode-' . (get_config('theme_ufpel', 'darkmodetoggle') ? 'enabled' : 'disabled'));
