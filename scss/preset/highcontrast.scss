@@ -1,0 +1,98 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Preset de alto contraste do tema UFPel (WCAG 2.1 AA)
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @author     Seu Nome
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// =============================================================================
+// IMPORTAÇÕES BASE
+// =============================================================================
+
+// Importa o preset default como base
+@import "default";
+
+// =============================================================================
+// VARIÁVEIS ALTO CONTRASTE
+// =============================================================================
+
+// Cores de alto contraste (WCAG AAA - ratio 7:1 mínimo)
+$hc-bg-primary: #000000 !default;
+$hc-bg-secondary: #111111 !default;
+$hc-bg-tertiary: #1a1a1a !default;
+
+$hc-text-primary: #ffffff !default;
+$hc-text-secondary: #f0f0f0 !default;
+$hc-text-link: #ffff00 !default;          // Amarelo para links
+$hc-text-visited: #ff00ff !default;       // Magenta para links visitados
+$hc-text-active: #00ffff !default;        // Ciano para elementos ativos
+
+// Cores de estado com alto contraste
+$hc-success: #00ff00 !default;
+$hc-warning: #ffaa00 !default;
+$hc-danger: #ff0000 !default;
+$hc-info: #00aaff !default;
+
+// Bordas mais grossas e visíveis
+$hc-border-width: 2px !default;
+$hc-border-color: #ffffff !default;
+$hc-border-focus: #ffff00 !default;
+$hc-focus-outline-width: 4px !default;
+
+// =============================================================================
+// APLICAÇÃO DO ALTO CONTRASTE
+// =============================================================================
+
+body.high-contrast {
+    // Reset geral
+    background: $hc-bg-primary !important;
+    color: $hc-text-primary !important;
+    
+    // Remove imagens de fundo e gradientes
+    background-image: none !important;
+    
+    // =============================================================================
+    // RESET GLOBAL
+    // =============================================================================
+    
+    * {
+        // Remove sombras e efeitos visuais
+        box-shadow: none !important;
+        text-shadow: none !important;
+        
+        // Remove transparências
+        opacity: 1 !important;
+        
+        // Remove filtros
+        filter: none !important;
+        
+        // Remove transformações que possam dificultar leitura
+        transform: none !important;
+        
+        // Desativa animações
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    // =============================================================================
+    // TIPOGRAFIA
+    // =============================================================================
+    
+    // Todos
