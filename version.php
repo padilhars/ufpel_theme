@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025011700;    // Versão do tema (YYYYMMDDXX).
+$plugin->version   = 2025120402;    // Versão do tema (YYYYMMDDXX).
 $plugin->requires  = 2024100700;    // Requer Moodle 5.0.1+ (Build: 20250613).
 $plugin->component = 'theme_ufpel'; // Nome completo do componente.
 $plugin->maturity  = MATURITY_STABLE; // Maturidade do código.
