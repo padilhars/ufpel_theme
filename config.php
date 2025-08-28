@@ -37,22 +37,28 @@ $THEME->enable_dock = false;
 // Usa renderizadores customizados.
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
 
-// Folhas de estilo SCSS para compilar.
+// CORREÇÃO CRÍTICA: Configuração correta do SCSS
+// Não use a propriedade $THEME->scss diretamente no Moodle 5.x
+// Em vez disso, use as callbacks apropriadas
+
+// Função para pré-compilar SCSS adicional (variáveis).
+$THEME->prescsscallback = 'theme_ufpel_get_pre_scss';
+
+// Função principal para obter o conteúdo SCSS
 $THEME->scss = function($theme) {
     return theme_ufpel_get_main_scss_content($theme);
 };
 
-// Função para pré-compilar SCSS adicional.
-$THEME->prescsscallback = 'theme_ufpel_get_pre_scss';
-
 // Função para SCSS extra após a compilação principal.
 $THEME->extrascsscallback = 'theme_ufpel_get_extra_scss';
 
-// Presets disponíveis para o tema.
-$THEME->presetfiles = [
-    'default' => 'default.scss',
-    'dark' => 'dark.scss',
-    'highcontrast' => 'highcontrast.scss',
+// CORREÇÃO: Configuração correta dos arquivos de preset
+// Esta é a forma correta no Moodle 5.x
+$THEME->usescsspresets = true;
+$THEME->scss_preset_files = [
+    'default' => 'preset/default.scss',
+    'dark' => 'preset/dark.scss',
+    'highcontrast' => 'preset/highcontrast.scss',
 ];
 
 // Usar cache de strings de idioma.

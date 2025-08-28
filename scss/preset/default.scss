@@ -23,32 +23,27 @@
  */
 
 // =============================================================================
-// IMPORTAÇÕES BASE DO BOOST
+// IMPORTANTE: NÃO IMPORTAR O BOOST MANUALMENTE
 // =============================================================================
-// Importa as configurações base do tema Boost (já carregado via lib.php)
-// O Boost já importa Bootstrap 5 e todas as dependências necessárias
+// O Moodle 5.x já carrega automaticamente o SCSS do Boost
+// porque declaramos $THEME->parents = ['boost'] no config.php
 
 // =============================================================================
-// MÓDULOS UFPel - ORDEM IMPORTA!
+// MÓDULOS UFPel - CORREÇÃO DOS CAMINHOS DE IMPORTAÇÃO
 // =============================================================================
 
-// 1. Variáveis e tokens de design (deve vir primeiro)
-@import "ufpel/variables";
+// CORREÇÃO: Usar caminhos relativos corretos
+// Os arquivos estão em scss/ufpel/ e este arquivo está em scss/preset/
+// Portanto, precisamos subir um nível (..) para acessar a pasta ufpel
+
+// 1. Variáveis e tokens de design (já carregado no pre_scss via lib.php)
+// @import "../ufpel/variables"; // Não precisa, já está no pre_scss
 
 // 2. Sistema de cores UFPel
-@import "ufpel/colors";
+@import "../ufpel/colors";
 
 // 3. Configurações de tipografia
-@import "ufpel/typography";
-
-// 4. Componentes customizados (vazio por enquanto - será usado nas próximas fases)
-// @import "ufpel/components";
-
-// 5. Classes utilitárias (vazio por enquanto - será usado nas próximas fases)
-// @import "ufpel/utilities";
-
-// 6. Estilos de acessibilidade (vazio por enquanto - será usado nas próximas fases)
-// @import "ufpel/accessibility";
+@import "../ufpel/typography";
 
 // =============================================================================
 // OVERRIDE DE VARIÁVEIS BOOTSTRAP/BOOST

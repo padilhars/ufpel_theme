@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Classe de hooks do tema UFPel para Moodle 5.x
+ * Classe de hooks do tema UFPel para Moodle 5.x - VERSÃO CORRIGIDA
  *
  * @package    theme_ufpel
  * @copyright  2025 Universidade Federal de Pelotas
@@ -122,71 +122,77 @@ class hooks {
     }
     
     /**
-     * Callback para o hook after_config
-     * Inicializa configurações do tema após o Moodle carregar
-     *
-     * @param \core\hook\after_config $hook
-     * @return void
-     */
-    public static function after_config(\core\hook\after_config $hook): void {
-        global $PAGE;
-        
-        // Esta função será chamada muito cedo no processo de inicialização
-        // Use com cuidado - nem todos os subsistemas estarão disponíveis
-        
-        // Por exemplo, podemos definir configurações padrão aqui
-        // mas não podemos acessar $PAGE ainda
-    }
-    
-    /**
      * Callback para page_init
-     * Inicializa recursos da página
+     * Inicializa recursos da página - CORRIGIDO para carregar AMD corretamente
      *
      * @param \core\hook\output\before_http_headers $hook
      * @return void
      */
     public static function before_http_headers(\core\hook\output\before_http_headers $hook): void {
-        global $PAGE, $USER;
+        global $PAGE, $USER, $CFG;
         
         // Apenas executa se estivermos usando o tema UFPel
         if ($PAGE->theme->name !== 'ufpel') {
             return;
         }
         
-        // Carrega o módulo principal do tema
-        $PAGE->requires->js_call_amd('theme_ufpel/theme', 'init', [
-            [
-                'darkModeEnabled' => get_config('theme_ufpel', 'darkmodetoggle'),
-                'highContrastEnabled' => get_config('theme_ufpel', 'highcontrasttoggle'),
-                'vLibrasEnabled' => get_config('theme_ufpel', 'vlibras'),
-                'animations' => true
-            ]
-        ]);
+        // CORREÇÃO: Verifica se os arquivos compilados existem antes de carregar
+        $themepath = $CFG->dirroot . '/theme/ufpel';
         
-        // Verifica se o modo escuro está habilitado
-        if (get_config('theme_ufpel', 'darkmodetoggle')) {
-            $PAGE->requires->js_call_amd('theme_ufpel/darkmode', 'init');
-            
-            // Adiciona classe ao body se usuário tem preferência salva
-            $darkmode = get_user_preferences('theme_ufpel_darkmode', false);
-            if ($darkmode) {
-                $PAGE->add_body_class('theme-dark-mode');
+        // Verifica e carrega o módulo principal do tema se existir
+        if (file_exists($themepath . '/amd/build/theme.min.js')) {
+            try {
+                $PAGE->requires->js_call_amd('theme_ufpel/theme', 'init', [
+                    [
+                        'darkModeEnabled' => (bool)get_config('theme_ufpel', 'darkmodetoggle'),
+                        'highContrastEnabled' => (bool)get_config('theme_ufpel', 'highcontrasttoggle'),
+                        'vLibrasEnabled' => (bool)get_config('theme_ufpel', 'vlibras'),
+                        'animations' => true
+                    ]
+                ]);
+            } catch (\Exception $e) {
+                debugging('Erro ao carregar theme_ufpel/theme: ' . $e->getMessage(), DEBUG_DEVELOPER);
             }
         }
         
-        // Inicializa ferramentas de acessibilidade
-        if (get_config('theme_ufpel', 'highcontrasttoggle')) {
-            $PAGE->requires->js_call_amd('theme_ufpel/accessibility', 'init');
-            
-            // Verifica preferência de alto contraste
-            $highcontrast = get_user_preferences('theme_ufpel_highcontrast', false);
-            if ($highcontrast) {
-                $PAGE->add_body_class('high-contrast');
+        // Verifica e carrega o módulo de modo escuro
+        if (get_config('theme_ufpel', 'darkmodetoggle') && 
+            file_exists($themepath . '/amd/build/darkmode.min.js')) {
+            try {
+                $PAGE->requires->js_call_amd('theme_ufpel/darkmode', 'init');
+                
+                // Adiciona classe ao body se usuário tem preferência salva
+                $darkmode = get_user_preferences('theme_ufpel_darkmode', false);
+                if ($darkmode) {
+                    $PAGE->add_body_class('theme-dark-mode');
+                }
+            } catch (\Exception $e) {
+                debugging('Erro ao carregar theme_ufpel/darkmode: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            }
+        }
+        
+        // Verifica e carrega o módulo de acessibilidade
+        if (get_config('theme_ufpel', 'highcontrasttoggle') && 
+            file_exists($themepath . '/amd/build/accessibility.min.js')) {
+            try {
+                $PAGE->requires->js_call_amd('theme_ufpel/accessibility', 'init');
+                
+                // Verifica preferência de alto contraste
+                $highcontrast = get_user_preferences('theme_ufpel_highcontrast', false);
+                if ($highcontrast) {
+                    $PAGE->add_body_class('high-contrast');
+                }
+            } catch (\Exception $e) {
+                debugging('Erro ao carregar theme_ufpel/accessibility: ' . $e->getMessage(), DEBUG_DEVELOPER);
             }
         }
         
         // Adiciona classes contextuais ao body
         self::add_body_classes($PAGE);
+        
+        // CORREÇÃO: Adiciona atributos data ao body para JavaScript
+        $PAGE->requires->data_for_js('darkmodetoggle', get_config('theme_ufpel', 'darkmodetoggle'));
+        $PAGE->requires->data_for_js('highcontrasttoggle', get_config('theme_ufpel', 'highcontrasttoggle'));
     }
     
     /**
@@ -215,27 +221,19 @@ class hooks {
             $page->add_body_class('course-' . $page->course->id);
         }
         
-        
-
-        // Adiciona classe para dispositivos móveis
-        //if (\core_useragent::is_mobile()) {
-        //    $page->add_body_class('is-mobile');
-        //}
-        
-        //// Adiciona classe para tablet
-        //if (\core_useragent::is_tablet()) {
-        //    $page->add_body_class('is-tablet');
-        //}
-
+        // Detecta tipo de dispositivo (Moodle 5.x)
         $devicetype = \core_useragent::get_device_type();
-
+        
         if ($devicetype === \core_useragent::DEVICETYPE_MOBILE) {
             $page->add_body_class('is-mobile');
         } else if ($devicetype === \core_useragent::DEVICETYPE_TABLET) {
             $page->add_body_class('is-tablet');
-        } 
+        }
         
         // Adiciona classe para o modo de configuração do tema
         $page->add_body_class('darkmode-' . (get_config('theme_ufpel', 'darkmodetoggle') ? 'enabled' : 'disabled'));
+        
+        // Adiciona classe para indicar que os módulos AMD estão disponíveis
+        $page->add_body_class('amd-loaded');
     }
 }

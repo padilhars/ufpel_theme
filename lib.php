@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Funções e hooks do tema UFPel (VERSÃO ATUALIZADA - Moodle 5.x com Hooks modernos)
+ * Funções e hooks do tema UFPel (VERSÃO CORRIGIDA)
  *
  * @package    theme_ufpel
  * @copyright  2025 Universidade Federal de Pelotas
@@ -27,6 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Retorna o conteúdo SCSS principal para compilação.
+ * CORREÇÃO CRÍTICA: Não carrega manualmente o SCSS do Boost,
+ * pois o tema herda do Boost e isso é feito automaticamente.
  *
  * @param theme_config $theme O objeto de configuração do tema.
  * @return string O conteúdo SCSS completo.
@@ -36,25 +38,40 @@ function theme_ufpel_get_main_scss_content($theme) {
 
     $scss = '';
     
-    // Primeiro, importa o SCSS do tema pai (Boost).
-    $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/default.scss');
+    // IMPORTANTE: NÃO carregar o SCSS do Boost manualmente
+    // O Moodle 5.x faz isso automaticamente quando declaramos
+    // $THEME->parents = ['boost'] no config.php
     
-    // Obtém o preset selecionado ou usa o padrão.
+    // Obtém o preset selecionado ou usa o padrão
     $preset = get_config('theme_ufpel', 'preset');
     if (empty($preset)) {
         $preset = 'default.scss';
     }
     
-    // Carrega o arquivo de preset do tema UFPel.
-    $presetfile = $CFG->dirroot . '/theme/ufpel/scss/preset/' . $preset;
+    // Carrega o arquivo de preset do tema UFPel
+    $presetfile = "{$CFG->dirroot}/theme/ufpel/scss/preset/{$preset}";
+    
     if (file_exists($presetfile)) {
-        $scss .= file_get_contents($presetfile);
+        // CORREÇÃO: Ajusta o contexto de importação para o diretório scss
+        // Isso garante que os @import funcionem corretamente
+        $presetcontent = file_get_contents($presetfile);
+        
+        // Adiciona o diretório base para os imports funcionarem
+        $scss .= "// Preset: {$preset}\n";
+        $scss .= $presetcontent;
+    } else {
+        // Fallback: carrega preset default se o arquivo não existir
+        $defaultpreset = "{$CFG->dirroot}/theme/ufpel/scss/preset/default.scss";
+        if (file_exists($defaultpreset)) {
+            $scss .= file_get_contents($defaultpreset);
+        }
     }
     
-    // Adiciona SCSS customizado do post.scss.
-    $postscss = file_get_contents($CFG->dirroot . '/theme/ufpel/scss/post.scss');
-    if ($postscss) {
-        $scss .= $postscss;
+    // Adiciona SCSS customizado do post.scss
+    $postscss = "{$CFG->dirroot}/theme/ufpel/scss/post.scss";
+    if (file_exists($postscss)) {
+        $scss .= "\n\n// Post SCSS\n";
+        $scss .= file_get_contents($postscss);
     }
     
     return $scss;
@@ -62,14 +79,25 @@ function theme_ufpel_get_main_scss_content($theme) {
 
 /**
  * Retorna as variáveis SCSS para pré-processamento.
+ * Este conteúdo é inserido ANTES do preset principal.
  *
  * @param theme_config $theme O objeto de configuração do tema.
  * @return string Variáveis SCSS.
  */
 function theme_ufpel_get_pre_scss($theme) {
+    global $CFG;
+    
     $scss = '';
+    
+    // CORREÇÃO: Importa as fontes PRIMEIRO
+    $scss .= '@import url("https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap");' . "\n\n";
+    
+    // Define as famílias de fontes como variáveis
+    $scss .= '$font-family-content: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !default;' . "\n";
+    $scss .= '$font-family-headings: "Antonio", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !default;' . "\n\n";
+    
+    // Configurações de cores do tema
     $configurable = [
-        // Cores configuráveis.
         'brandcolor' => '#0080FF',
         'brandsecondary' => '#00408F',
         'brandbackground' => '#EBF5FF',
@@ -79,29 +107,28 @@ function theme_ufpel_get_pre_scss($theme) {
         'texthighlight' => '#FFFFFF'
     ];
     
-    // Processa cada variável configurável.
+    // Processa cada variável configurável
     foreach ($configurable as $configkey => $defaultvalue) {
         $value = get_config('theme_ufpel', $configkey);
         if (empty($value)) {
             $value = $defaultvalue;
         }
-        $scss .= "\$theme-ufpel-{$configkey}: {$value};\n";
+        // CORREÇÃO: Usa !default para permitir override
+        $scss .= "\$theme-ufpel-{$configkey}: {$value} !default;\n";
     }
     
-    // Adiciona importação das fontes do Google.
-    $scss .= '@import url("https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap");';
-    $scss .= "\n";
-    
-    // Define as famílias de fontes.
-    $scss .= '$font-family-content: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;';
-    $scss .= "\n";
-    $scss .= '$font-family-headings: "Antonio", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;';
-    $scss .= "\n";
-    
-    // Adiciona configurações de largura do container se definidas.
+    // Adiciona largura do container se configurada
     $containerwidth = get_config('theme_ufpel', 'containerwidth');
     if (!empty($containerwidth)) {
-        $scss .= "\$container-max-width: {$containerwidth};\n";
+        $scss .= "\$container-max-width: {$containerwidth} !default;\n";
+    }
+    
+    // CORREÇÃO IMPORTANTE: Carrega os arquivos de variáveis base AQUI
+    // Isso garante que as variáveis estejam disponíveis para todos os presets
+    $variablesfile = "{$CFG->dirroot}/theme/ufpel/scss/ufpel/_variables.scss";
+    if (file_exists($variablesfile)) {
+        $scss .= "\n// Variáveis base UFPel\n";
+        $scss .= file_get_contents($variablesfile);
     }
     
     return $scss;
@@ -109,6 +136,7 @@ function theme_ufpel_get_pre_scss($theme) {
 
 /**
  * Retorna SCSS extra para ser adicionado após o SCSS principal.
+ * Este é o último SCSS a ser processado.
  *
  * @param theme_config $theme O objeto de configuração do tema.
  * @return string SCSS adicional.
@@ -116,11 +144,17 @@ function theme_ufpel_get_pre_scss($theme) {
 function theme_ufpel_get_extra_scss($theme) {
     $scss = '';
     
-    // Adiciona SCSS customizado inserido pelo administrador.
+    // Adiciona SCSS customizado inserido pelo administrador
     $customscss = get_config('theme_ufpel', 'customscss');
     if (!empty($customscss)) {
+        $scss .= "\n// Custom SCSS from admin settings\n";
         $scss .= $customscss;
     }
+    
+    // CORREÇÃO: Garante que as customizações finais sejam aplicadas
+    $scss .= "\n// Final overrides\n";
+    $scss .= "body { font-family: \$font-family-content !important; }\n";
+    $scss .= "h1, h2, h3, h4, h5, h6 { font-family: \$font-family-headings !important; }\n";
     
     return $scss;
 }
@@ -142,7 +176,7 @@ function theme_ufpel_pluginfile($course, $cm, $context, $filearea, $args, $force
         return false;
     }
     
-    // Áreas de arquivo permitidas.
+    // Áreas de arquivo permitidas
     $allowedareas = [
         'logo',
         'logocompact',
@@ -195,7 +229,7 @@ function theme_ufpel_get_logo_url($type = 'logo', $theme = null) {
         return $url;
     }
     
-    // Retorna imagem padrão se existir.
+    // Retorna imagem padrão se existir
     $defaultfile = $CFG->dirroot . '/theme/ufpel/pix/' . $type . '-default.svg';
     if (file_exists($defaultfile)) {
         return new moodle_url('/theme/ufpel/pix/' . $type . '-default.svg');
@@ -210,14 +244,12 @@ function theme_ufpel_get_logo_url($type = 'logo', $theme = null) {
  * @return void
  */
 function theme_ufpel_after_upgrade_callback() {
-    // Limpa o cache do tema após atualização.
+    // Limpa o cache do tema após atualização
     theme_reset_all_caches();
 }
 
 /**
  * Adiciona classes CSS ao body baseadas no contexto e preferências.
- * Esta função é mantida para compatibilidade com código existente
- * mas o trabalho principal agora é feito via hooks.
  *
  * @param array $additionalclasses Array de classes existentes.
  * @return array Array de classes atualizado.
@@ -225,50 +257,42 @@ function theme_ufpel_after_upgrade_callback() {
 function theme_ufpel_body_classes($additionalclasses) {
     global $PAGE, $USER;
     
-    // Adiciona classe para modo escuro se ativado.
+    // Adiciona classe para modo escuro se ativado
     if (get_user_preferences('theme_ufpel_darkmode', false)) {
         $additionalclasses[] = 'theme-dark-mode';
     }
     
-    // Adiciona classe para alto contraste se ativado.
+    // Adiciona classe para alto contraste se ativado
     if (get_user_preferences('theme_ufpel_highcontrast', false)) {
         $additionalclasses[] = 'high-contrast';
     }
     
-    // Adiciona classe baseada no tamanho de fonte preferido.
+    // Adiciona classe baseada no tamanho de fonte preferido
     $fontsize = get_user_preferences('theme_ufpel_fontsize', '100');
     if ($fontsize != '100') {
         $additionalclasses[] = 'font-size-' . $fontsize;
     }
     
-    // Adiciona classe se VLibras estiver ativo.
+    // Adiciona classe se VLibras estiver ativo
     if (get_user_preferences('theme_ufpel_vlibras', false)) {
         $additionalclasses[] = 'vlibras-enabled';
     }
     
-    // Adiciona classe de contexto do curso.
+    // Adiciona classe de contexto do curso
     if ($PAGE->course && $PAGE->course->id != SITEID) {
         $additionalclasses[] = 'in-course';
         $additionalclasses[] = 'course-' . $PAGE->course->id;
     }
     
-    // Adiciona classe para dispositivos móveis.
+    // Adiciona classe para dispositivos móveis
     if (core_useragent::is_mobile()) {
         $additionalclasses[] = 'is-mobile';
     }
     
-    // Adiciona classe para tablet.
+    // Adiciona classe para tablet
     if (core_useragent::is_tablet()) {
         $additionalclasses[] = 'is-tablet';
     }
     
     return $additionalclasses;
 }
-
-// NOTA: As seguintes funções foram REMOVIDAS e migradas para o sistema de hooks:
-// - theme_ufpel_page_init() -> Migrada para hooks::before_http_headers()
-// - theme_ufpel_before_standard_html_head() -> Migrada para hooks::before_standard_head_html_generation()
-// - theme_ufpel_get_extra_footer_html() -> Migrada para hooks::before_standard_footer_html_generation()
-//
-// O novo sistema de hooks do Moodle 5.x oferece melhor performance e organização
-// Consulte o arquivo classes/hooks.php para a nova implementação
